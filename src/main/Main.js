@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { tileArray } from './tileArray';
 import './Main.css';
-import { addExpense } from '../services/Firestore';
+import { addDailyExpense } from '../services/Firestore';
 
 function Main() {
   const [type, setType] = useState('');
   const [price, setPrice] = useState('');
   const [showNumPad, setNumPad] = useState(false);
   function handleSubmit() {
-    addExpense(type, price);
+    addDailyExpense(type, price);
     setNumPad(false);
     setPrice('');
   }

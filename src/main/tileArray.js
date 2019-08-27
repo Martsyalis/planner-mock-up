@@ -1,6 +1,9 @@
 import dinnerIcon from '../assets/dinner-icon.png';
 import lunchIcon from '../assets/lunch-icon.png';
 import coffeeIcon from '../assets/coffee-icon.png';
+import groceriesIcon from '../assets/groceries-icon.png';
+import onlineShoppingIcon from '../assets/online-shopping-icon.png';
+import shoppingIcon from '../assets/shopping-icon.png';
 
 export const tileArray = [
     {
@@ -16,16 +19,16 @@ export const tileArray = [
         img: dinnerIcon
     },
     {
-        type: "Coffee",
-        img: coffeeIcon
+        type: "Groceries",
+        img: groceriesIcon
     },
     {
-        type: "Lunch",
-        img: lunchIcon
+        type: "Online",
+        img: onlineShoppingIcon
     },
     {
-        type: "Dinner",
-        img: dinnerIcon
+        type: "Shopping",
+        img: shoppingIcon
     },
     {
         type: "Coffee",

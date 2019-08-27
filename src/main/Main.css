@@ -8,9 +8,29 @@
   justify-content: center;
 }
 .box-parent {
-  width: 6rem;
-  margin: 0.5rem;
+  width: 8rem;
+  margin: 0.15rem;
+  display: flex;
+  justify-content: center;
+}
+.icon-image {
+  height: 5rem;
+  width: 5rem;
 }
 .type {
   text-align: center;
 }
+.center-child {
+  display: flex;
+  justify-content: center;
+}
+
+.price-input{
+    width:50%;
+    margin-bottom: 2rem;
+}
+.price-button{
+    width: 33%;
+}
+
+

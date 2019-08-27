@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <Brand isBurgerOpen={isBurgerOpen} handleBurger={handleBurger} />
-      <NavMenu isBurgerMenu={isBurgerOpen} />
+      <NavMenu isBurgerMenu={isBurgerOpen} handleBurger={handleBurger} />
     </nav>
   );
 }
@@ -28,16 +28,19 @@ function Brand({ isBurgerOpen, handleBurger }) {
   );
 }
 
-function NavMenu({ isBurgerMenu }) {
+function NavMenu({ isBurgerMenu, handleBurger }) {
   return (
     <div
       className={`navbar-menu ${isBurgerMenu && 'is-active'}`}
       style={{ opacity: 0.9 }}
     >
-      <div className="navbar-end mobile-navbar">
+      <div
+        className="navbar-end mobile-navbar"
+        onClick={() => handleBurger(false)}
+      >
         <MenuLink to="/" text="Home" />
         <MenuLink to="/" text="Monthly" />
-        <MenuLink to="/" text="History" />
+        <MenuLink to="/history" text="History" />
       </div>
     </div>
   );

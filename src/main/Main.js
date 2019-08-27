@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { tileArray } from './tileArray';
 import './Main.css';
 

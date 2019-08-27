@@ -1,14 +1,16 @@
+.main-page {
+  margin-top: 5rem;
+}
 
-.tile-flex-parent{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 5rem;
+.tile-flex-parent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.box-parent{
-    width: 6rem;
-    margin: 0.5rem;
+.box-parent {
+  width: 6rem;
+  margin: 0.5rem;
 }
-.type{
-    text-align: center;
+.type {
+  text-align: center;
 }

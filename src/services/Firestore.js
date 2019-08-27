@@ -15,10 +15,11 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 
-function addExpense(type) {
+function addExpense(type, price) {
     db.collection('dailyExpenses')
       .add({
-        type: type
+        type: type,
+        price: price
       })
       .then(function(docRef) {
         console.log('Document written with ID: ', docRef.id);

@@ -29,10 +29,19 @@ function addDailyExpense(type, price) {
 }
 
 function getDailyExpenses() {
-  return db.collection('dailyExpenses')
-  .get()
-  .then(results => results)
-  .catch(err => console.log('error in getDailyExpesnes: ', err));
+  return db
+    .collection('dailyExpenses')
+    .orderBy('date')
+    .get()
+    .then(snapShot => { // gives us wierd snapShot
+      let resultsArray = []
+      snapShot.forEach(result => { // snapshot comes with forEach method 
+        let resultObject = {...result.data(), ...result.data().date.toDate()} // get the object and switch date to workable format
+        resultsArray.push(resultObject)
+      });
+      return resultsArray;
+    })
+    .catch(err => console.log('error in getDailyExpesnes: ', err));
 }
 
 export { addDailyExpense, getDailyExpenses };

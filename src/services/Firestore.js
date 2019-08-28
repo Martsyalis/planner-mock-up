@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import moment from 'moment';
 
 import 'firebase/firestore';
 const firebaseConfig = {
@@ -33,11 +34,16 @@ function getDailyExpenses() {
     .collection('dailyExpenses')
     .orderBy('date')
     .get()
-    .then(snapShot => { // gives us wierd snapShot
-      let resultsArray = []
-      snapShot.forEach(result => { // snapshot comes with forEach method 
-        let resultObject = {...result.data(), ...result.data().date.toDate()} // get the object and switch date to workable format
-        resultsArray.push(resultObject)
+    .then(snapShot => {
+      // gives us wierd snapShot
+      let resultsArray = [];
+      snapShot.forEach(result => {
+        // snapshot comes with forEach method
+        let formatedDate = moment(result.data().date.toDate()).format("MMM Do");
+        console.log('formated Date is', formatedDate);
+        let resultObject = { ...result.data(), ...{ date: formatedDate } }; // get the object and switch date to workable format
+        console.log('result oject is: ', resultObject)
+        resultsArray.push(resultObject);
       });
       return resultsArray;
     })

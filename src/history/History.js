@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getDailyExpenses } from '../services/Firestore';
-import './History.css';
 
 function History() {
   return (
     <div>
       <HistoryHero />
       <Table />
-    </div>
-  );
-}
-
-function HistoryHero() {
-  return (
-    <div className="center-child hero-parent">
-      <h1 className="title">History</h1>
     </div>
   );
 }

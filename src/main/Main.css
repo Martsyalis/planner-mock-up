@@ -20,10 +20,6 @@
 .type {
   text-align: center;
 }
-.center-child {
-  display: flex;
-  justify-content: center;
-}
 
 .price-input{
     width:50%;

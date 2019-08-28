@@ -21,12 +21,10 @@
   text-align: center;
 }
 
-.price-input{
-    width:50%;
-    margin-bottom: 2rem;
+.price-input {
+  width: 50%;
+  margin-bottom: 2rem;
 }
-.price-button{
-    width: 33%;
+.price-button {
+  width: 33%;
 }
-
-

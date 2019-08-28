@@ -5,7 +5,11 @@ import './Navbar.css';
 function Navbar() {
   const [isBurgerOpen, handleBurger] = useState(false);
   return (
-    <nav className="navbar main-navbar" role="navigation" aria-label="main navigation">
+    <nav
+      className="navbar main-navbar"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <Brand isBurgerOpen={isBurgerOpen} handleBurger={handleBurger} />
       <NavMenu isBurgerMenu={isBurgerOpen} handleBurger={handleBurger} />
     </nav>

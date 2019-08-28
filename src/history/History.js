@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getDailyExpenses } from '../services/Firestore';
+import './History.css';
 
 function History() {
   return (
@@ -12,7 +13,7 @@ function History() {
 
 function HistoryHero() {
   return (
-    <div className="center-child">
+    <div className="center-child hero-parent">
       <h1 className="title">History</h1>
     </div>
   );
@@ -33,13 +34,12 @@ function Table() {
       <td className="td">${expense.price}</td>
     </tr>
   ));
-  return (
-    dailyExpensesHistory.length
-    ?
+  return dailyExpensesHistory.length ? (
     <table className="table is-fullwidth">
       <tbody className="tbody">{printExenses}</tbody>
     </table>
-    :<div>No Expenses yet</div>
+  ) : (
+    <div>No Expenses yet</div>
   );
 }
 

@@ -21,7 +21,6 @@ function Main() {
       setNumPad={setNumPad}
     />
   ));
-  console.log('price is: ', price);
   return (
     <div className="main-page">
       {showNumPad ? (
@@ -66,7 +65,10 @@ function PriceInput({ price, setPrice, handleSubmit }) {
         />
       </div>
       <div className="center-child">
-        <div className="button is-link is-rounded price-button" onClick={handleSubmit}>
+        <div
+          className="button is-link is-rounded price-button"
+          onClick={handleSubmit}
+        >
           Submit
         </div>
       </div>

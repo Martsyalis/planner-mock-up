@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import Main from '../main/Main';
-import History from '../history/History'
+import History from '../history/History';
 
 function Routes() {
   return (

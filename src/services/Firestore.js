@@ -21,9 +21,7 @@ function addDailyExpense(type, price) {
       price: price,
       date: new Date()
     })
-    .then(function(docRef) {
-      console.log('Document written with ID: ', docRef.id);
-    })
+    .then(function(docRef) {})
     .catch(function(error) {
       console.error('Error adding document: ', error);
     });
@@ -39,15 +37,13 @@ function getDailyExpenses() {
       let resultsArray = [];
       snapShot.forEach(result => {
         // snapshot comes with forEach method
-        let formatedDate = moment(result.data().date.toDate()).format("MMM Do");
-        console.log('formated Date is', formatedDate);
+        let formatedDate = moment(result.data().date.toDate()).format('MMM Do');
         let resultObject = { ...result.data(), ...{ date: formatedDate } }; // get the object and switch date to workable format
-        console.log('result oject is: ', resultObject)
         resultsArray.push(resultObject);
       });
       return resultsArray;
     })
-    .catch(err => console.log('error in getDailyExpesnes: ', err));
+    .catch(err => console.error('error in getDailyExpesnes: ', err));
 }
 
 export { addDailyExpense, getDailyExpenses };

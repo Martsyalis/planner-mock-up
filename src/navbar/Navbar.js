@@ -44,7 +44,7 @@ function NavMenu({ isBurgerMenu, handleBurger }) {
         onClick={() => handleBurger(false)}
       >
         <MenuLink to="/" text="Home" />
-        <MenuLink to="/" text="Monthly" />
+        <MenuLink to="/budget" text="Budget" />
         <MenuLink to="/history" text="History" />
       </div>
     </div>

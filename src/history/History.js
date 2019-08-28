@@ -3,15 +3,6 @@ import { getDailyExpenses } from '../services/Firestore';
 import { Hero } from '../commonComponents/commonComponents';
 
 function History() {
-  return (
-    <div>
-      <Hero title="History" />
-      <Table />
-    </div>
-  );
-}
-
-function Table() {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
   useEffect(() => {
     if (dailyExpensesHistory.length) return;
@@ -19,6 +10,15 @@ function Table() {
       handleExpensesHistory(results);
     });
   });
+  return (
+    <div>
+      <Hero title="History" />
+      <Table dailyExpensesHistory={dailyExpensesHistory}/>
+    </div>
+  );
+}
+
+function Table({dailyExpensesHistory}) {
   const printExenses = dailyExpensesHistory.map((expense, i) => (
     <tr key={i} className="tr">
       <td className="td">{expense.date}</td>

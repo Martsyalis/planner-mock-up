@@ -27,11 +27,20 @@ function Table() {
     });
   });
   const printExenses = dailyExpensesHistory.map((expense, i) => (
-    <div key={i}>
-      <p>{expense.type}</p>
-    </div>
+    <tr key={i} className="tr">
+      <td className="td">{expense.date}</td>
+      <td className="td">{expense.type}</td>
+      <td className="td">${expense.price}</td>
+    </tr>
   ));
-  return <div>{dailyExpensesHistory.length && printExenses}</div>;
+  return (
+    dailyExpensesHistory.length
+    ?
+    <table className="table is-fullwidth">
+      <tbody className="tbody">{printExenses}</tbody>
+    </table>
+    :<div>No Expenses yet</div>
+  );
 }
 
 export default History;

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getDailyExpenses } from '../services/Firestore';
+import { Hero } from '../commonComponents/commonComponents';
 
 function History() {
   return (
     <div>
-      <HistoryHero />
+      <Hero title="History" />
       <Table />
     </div>
   );

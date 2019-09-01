@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import editIcon from '../assets/edit-icon.svg';
 
 function Hero({ title }) {
   return (
@@ -35,4 +36,20 @@ function NumberInput({ handleSubmit }) {
   );
 }
 
-export { Hero, NumberInput };
+function Card({ number, handleEdit }) {
+  return (
+      <article className="message is-info">
+        <div className="message-header">
+          <p>Budget</p>
+          <span className="icon" onClick={handleEdit}>
+            <img src={editIcon} />
+          </span>
+        </div>
+        <div className="message-body">
+          Your monthly budget is: {number}
+        </div>
+      </article>
+  );
+}
+
+export { Hero, NumberInput, Card };

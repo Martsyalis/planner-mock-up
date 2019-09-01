@@ -46,4 +46,28 @@ function getDailyExpenses() {
     .catch(err => console.error('error in getDailyExpesnes: ', err));
 }
 
-export { addDailyExpense, getDailyExpenses };
+function getBudgetById(id = 'Yp8RFwZgIHrbRrHf0mIs') {
+  return db
+    .collection('budget')
+    .doc(id)
+    .get()
+    .then(snapshot => {
+      return snapshot.data();
+    })
+    .catch(err => console.error('error in getBudgetById: ', err));
+}
+
+function setBudgetById(newBudget, id = 'Yp8RFwZgIHrbRrHf0mIs') {
+  return db
+    .collection('budget')
+    .doc(id)
+    .set({
+      monthlyBudget: newBudget
+    })
+    .then(() => {
+      return 'no error';
+    })
+    .catch(err => console.error('error in getBudgetById: ', err));
+}
+
+export { addDailyExpense, getDailyExpenses, getBudgetById, setBudgetById };

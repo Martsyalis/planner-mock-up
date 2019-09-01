@@ -29,11 +29,8 @@ function Budget() {
       ) : (
         <React.Fragment>
           <Hero title="Budget" />
-          <Card
-            number={monthlyBudget}
-            handleEdit={() => setInput('editMonthlyBudget')}
-          />
-          <Card
+          <MonthyBudgetCard
+            title = "Budget"
             number={monthlyBudget}
             handleEdit={() => setInput('editMonthlyBudget')}
           />
@@ -42,6 +39,13 @@ function Budget() {
     </React.Fragment>
   );
 }
+
+function MonthlyBudget({number}){
+  return <p>Your Monthly Budget is: {number}</p>
+} 
+
+
+const MonthyBudgetCard = Card(MonthlyBudget);
 
 
 

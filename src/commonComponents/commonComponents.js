@@ -11,7 +11,7 @@ function Hero({ title }) {
 
 // handle Submit has to take the number as the first parameter
 function NumberInput({ handleSubmit }) {
-  const [number, setNumber] = useState('')
+  const [number, setNumber] = useState('');
   return (
     <div>
       <div className="center-child">
@@ -36,20 +36,26 @@ function NumberInput({ handleSubmit }) {
   );
 }
 
-function Card({ number, handleEdit }) {
-  return (
-      <article className="message is-info">
-        <div className="message-header">
-          <p>Budget</p>
-          <span className="icon" onClick={handleEdit}>
-            <img src={editIcon} />
-          </span>
-        </div>
-        <div className="message-body">
-          Your monthly budget is: {number}
-        </div>
-      </article>
-  );
+function Card(WrappedComponent) {
+  return class extends React.Component {
+    render() {
+      const {title, handleEdit} = this.props;
+      return (
+        <article className="message is-info">
+          <div className="message-header">
+            <p>{title}</p>
+            <span className="icon" onClick={handleEdit}>
+              <img src={editIcon} />
+            </span>
+          </div>
+          <div className="message-body">
+            <WrappedComponent
+            {...this.props}/>
+          </div>
+        </article>
+      );
+    }
+  };
 }
 
 export { Hero, NumberInput, Card };

@@ -27,13 +27,17 @@ function Budget() {
       {input ? (
         <NumberInput handleSubmit={functionObj[input]} />
       ) : (
-        <div>
+        <React.Fragment>
           <Hero title="Budget" />
           <Card
             number={monthlyBudget}
             handleEdit={() => setInput('editMonthlyBudget')}
           />
-        </div>
+          <Card
+            number={monthlyBudget}
+            handleEdit={() => setInput('editMonthlyBudget')}
+          />
+        </React.Fragment>
       )}
     </React.Fragment>
   );
@@ -41,6 +45,5 @@ function Budget() {
 
 
 
-// function MonthlyExpenses({monthy})
 
 export default Budget;

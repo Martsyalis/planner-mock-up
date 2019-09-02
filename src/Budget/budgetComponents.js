@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Hero, NumberInput, Card } from '../commonComponents/commonComponents';
+import { getDailyExpenses } from '../services/Firestore';
 
 const MonthlyExpensesCard = Card(
   ({
@@ -7,7 +8,8 @@ const MonthlyExpensesCard = Card(
     handleShowAddField,
     showAddField,
     setMonthlyExpenses,
-    removeMonthlyExpense
+    removeMonthlyExpense,
+    addMonthlyExpense
   }) => {
     function handleRemove(expense) {
       removeMonthlyExpense(expense);
@@ -16,34 +18,34 @@ const MonthlyExpensesCard = Card(
       setMonthlyExpenses(newMonthlyObj);
     }
     function printExenses() {
-      console.log('we are printing');
       return Object.keys(monthlyObj).map((key, i) => (
         <tr key={i} className="tr">
           <td className="td">{key}</td>
           <td className="td">${monthlyObj[key]}</td>
-          <td>
-            <div
-              className="delete"
-              aria-label="delete"
-              onClick={() => handleRemove(key)}
-            ></div>
-          </td>
+          {showAddField && (
+            <td className="fixed-right">
+              <div
+                className="delete"
+                aria-label="delete"
+                onClick={() => handleRemove(key)}
+              ></div>
+            </td>
+          )}
         </tr>
       ));
     }
     return (
       <table className="table is-fullwidth">
         <tbody className="tbody">
-          {showAddField ? (
+          {showAddField && (
             <AddField
               handleShowAddField={handleShowAddField}
               setMonthlyExpenses={setMonthlyExpenses}
               monthlyObj={monthlyObj}
               addMonthlyExpense={addMonthlyExpense}
             />
-          ) : (
-            printExenses()
           )}
+          {printExenses()}
         </tbody>
       </table>
     );
@@ -101,4 +103,33 @@ const MonthyBudgetCard = Card(({ monthlyBudget }) => (
   <p>Your Monthly Budget is: ${monthlyBudget}</p>
 ));
 
-export { MonthlyExpensesCard, MonthyBudgetCard };
+const BalanceCard = Card(({ monthlyBudget, monthlyExpenses }) => {
+  const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
+  useEffect(() => {
+    getDailyExpenses().then(results => {
+      handleExpensesHistory(results);
+    });
+  }, []);
+  function monthlyExpensesBalance() {
+    return Object.keys(monthlyExpenses).reduce((accumulator, currentValue) => {
+      console.log(' current value', parseFloat(monthlyExpenses[currentValue]));
+      return (
+        accumulator - parseFloat(parseFloat(monthlyExpenses[currentValue]))
+      );
+    }, parseFloat(monthlyBudget));
+  }
+
+  function allExpensesBalance(){
+    
+    
+  }
+
+  return (
+    <React.Fragment>
+      <p>Your Monthly Balance is: {monthlyExpensesBalance()} </p>
+      <p>Your Balance this Month so far is : {}</p>
+    </React.Fragment>
+  );
+});
+
+export { MonthlyExpensesCard, MonthyBudgetCard, BalanceCard };

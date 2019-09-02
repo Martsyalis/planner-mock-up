@@ -7,11 +7,16 @@ import {
   removeMonthlyExpense
 } from '../services/Firestore';
 import { Hero, NumberInput } from '../commonComponents/commonComponents';
-import { MonthlyExpensesCard, MonthyBudgetCard } from './budgetComponents';
+import {
+  MonthlyExpensesCard,
+  MonthyBudgetCard,
+  BalanceCard
+} from './budgetComponents';
+import './Budget.css';
 
 function Budget() {
   const [monthlyBudget, setBudget] = useState(0);
-  const [monthlyExpenses, setMonthlyExpenses] = useState({});
+  const [monthlyExpenses, setMonthlyExpenses] = useState('');
   const [showAddField, handleShowAddField] = useState(false);
   const [input, setInput] = useState('');
   useEffect(() => {
@@ -38,6 +43,13 @@ function Budget() {
         <NumberInput handleSubmit={functionObj[input]} />
       ) : (
         <React.Fragment>
+          {monthlyBudget && monthlyExpenses && (
+            <BalanceCard
+              title="Balance"
+              monthlyBudget={monthlyBudget}
+              monthlyExpenses={monthlyExpenses}
+            />
+          )}
           <MonthyBudgetCard
             title="Budget"
             monthlyBudget={monthlyBudget}

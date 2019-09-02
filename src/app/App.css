@@ -11,3 +11,8 @@
   width: 50%;
   margin-bottom: 2rem;
 }
+
+.fixed-right{
+  position: fixed;
+  right: 1rem;
+}

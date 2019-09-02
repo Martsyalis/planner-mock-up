@@ -35,7 +35,6 @@ function Budget() {
         <NumberInput handleSubmit={functionObj[input]} />
       ) : (
         <React.Fragment>
-          <Hero title="Budget" />
           <MonthyBudgetCard
             title="Budget"
             monthlyBudget={monthlyBudget}
@@ -68,10 +67,10 @@ const MonthlyExpensesCard = Card(({ monthlyObj, setMonthlyExpenses }) => {
     </tr>
   ));
   const addExpense = () => {
-    let expenseObj = {}
+    let expenseObj = {};
     expenseObj[newExpenseType] = newExpensePrice;
     addMonthlyExpense(expenseObj).then(
-      setMonthlyExpenses({ ...monthlyObj, ...expenseObj})
+      setMonthlyExpenses({ ...monthlyObj, ...expenseObj })
     );
   };
   return (
@@ -80,10 +79,22 @@ const MonthlyExpensesCard = Card(({ monthlyObj, setMonthlyExpenses }) => {
         {printExenses}
         <tr>
           <td>
-            <input className="input" type="string" value={newExpenseType}  onChange={event => handleNewExpenseType(event.target.value)} />
+            <input
+              className="input"
+              type="string"
+              placeholder="type of expense"
+              value={newExpenseType}
+              onChange={event => handleNewExpenseType(event.target.value)}
+            />
           </td>
           <td>
-            <input className="input" type="number" value={newExpensePrice}  onChange={event => handleNewExpensePrice(event.target.value)} />
+            <input
+              className="input"
+              type="number"
+              placeholder="Monthly Ammount"
+              value={newExpensePrice}
+              onChange={event => handleNewExpensePrice(event.target.value)}
+            />
           </td>
           <td>
             <div className="button is-link" onClick={addExpense}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import editIcon from '../assets/edit-icon.svg';
-import addIcon from '../assets/edit-icon.svg';
+// import addIcon from '../assets/add-icon.png';
 
 function Hero({ title }) {
   return (
@@ -40,7 +40,7 @@ function NumberInput({ handleSubmit }) {
 function Card(WrappedComponent) {
   return class extends React.Component {
     render() {
-      const { title, handleEdit, handleShowAddField } = this.props;
+      const { title, handleEdit, handleShowAddField, showAddField } = this.props;
       return (
         <article className="message is-info">
           <div className="message-header">
@@ -50,8 +50,8 @@ function Card(WrappedComponent) {
                 <img src={editIcon} />
               </span>
             ) : (
-              <span className="icon" onClick={handleShowAddField}>
-                <img src={addIcon} />
+                <span className="icon" onClick={()=>handleShowAddField(!showAddField)}>
+                <img src={editIcon} />
               </span>
             )}
           </div>

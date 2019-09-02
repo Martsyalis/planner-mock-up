@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Main from '../main/Main';
 import History from '../history/History';
 import Budget from '../budget/Budget';
@@ -16,4 +16,4 @@ function Routes() {
   );
 }
 
-export default withRouter(Routes);
+export default Routes;

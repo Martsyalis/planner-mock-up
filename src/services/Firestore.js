@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import moment from 'moment';
 
 import 'firebase/firestore';
@@ -28,22 +28,26 @@ function addDailyExpense(type, price) {
 }
 
 function getDailyExpenses() {
-  return db
-    .collection('dailyExpenses')
-    .orderBy('date')
-    .get()
-    .then(snapShot => {
+  return (
+    db
+      .collection('dailyExpenses')
+      .orderBy('date')
+      .get()
       // gives us wierd snapShot
-      let resultsArray = [];
-      snapShot.forEach(result => {
+      .then(snapShot => {
+        let resultsArray = [];
         // snapshot comes with forEach method
-        let formatedDate = moment(result.data().date.toDate()).format('MMM Do');
-        let resultObject = { ...result.data(), ...{ date: formatedDate } }; // get the object and switch date to workable format
-        resultsArray.push(resultObject);
-      });
-      return resultsArray;
-    })
-    .catch(err => console.error('error in getDailyExpesnes: ', err));
+        snapShot.forEach(result => {
+          let formatedDate = moment(result.data().date.toDate()).format(
+            'MMM Do'
+          );
+          let resultObject = { ...result.data(), ...{ date: formatedDate } }; // get the object and switch date to workable format
+          resultsArray.push(resultObject);
+        });
+        return resultsArray;
+      })
+      .catch(err => console.error('error in getDailyExpesnes: ', err))
+  );
 }
 
 function getBudgetById(id = 'Yp8RFwZgIHrbRrHf0mIs') {
@@ -67,7 +71,18 @@ function setBudgetById(newBudget, id = 'Yp8RFwZgIHrbRrHf0mIs') {
     .then(() => {
       return 'no error';
     })
-    .catch(err => console.error('error in getBudgetById: ', err));
+    .catch(err => console.error('error in setBudgetById: ', err));
 }
 
-export { addDailyExpense, getDailyExpenses, getBudgetById, setBudgetById };
+function getAllMonthlyExpensesById(id = 'uYJ87RqNL2vCFrbS8BEz') {
+  console.log('something')
+  return db
+    .collection('monthlyExpenses')
+    .doc(id)
+    .get()
+    // gives us wierd snapShot
+    .then(snapShot => snapShot.data())
+    .catch(err => console.error('error in getAllMonthlyExpensesById: ', err));
+}
+
+export { addDailyExpense, getDailyExpenses, getBudgetById, setBudgetById, getAllMonthlyExpensesById };

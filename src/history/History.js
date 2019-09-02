@@ -5,11 +5,10 @@ import { Hero } from '../commonComponents/commonComponents';
 function History() {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
   useEffect(() => {
-    if (dailyExpensesHistory.length) return;
     getDailyExpenses().then(results => {
       handleExpensesHistory(results);
     });
-  });
+  },[]);
   return (
     <div>
       <Hero title="History" />

@@ -20,6 +20,7 @@ function Main() {
       setNumPad={setNumPad}
     />
   ));
+
   return (
     <React.Fragment>
       <Hiro title="Expenses" />

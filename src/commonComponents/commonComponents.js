@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import editIcon from '../assets/edit-icon.svg';
+import addIcon from '../assets/edit-icon.svg';
 
 function Hero({ title }) {
   return (
@@ -39,18 +40,23 @@ function NumberInput({ handleSubmit }) {
 function Card(WrappedComponent) {
   return class extends React.Component {
     render() {
-      const {title, handleEdit} = this.props;
+      const { title, handleEdit, handleShowAddField } = this.props;
       return (
         <article className="message is-info">
           <div className="message-header">
             <p>{title}</p>
-            <span className="icon" onClick={handleEdit}>
-              <img src={editIcon} />
-            </span>
+            {handleEdit ? (
+              <span className="icon" onClick={handleEdit}>
+                <img src={editIcon} />
+              </span>
+            ) : (
+              <span className="icon" onClick={handleShowAddField}>
+                <img src={addIcon} />
+              </span>
+            )}
           </div>
           <div className="message-body">
-            <WrappedComponent
-            {...this.props}/>
+            <WrappedComponent {...this.props} />
           </div>
         </article>
       );

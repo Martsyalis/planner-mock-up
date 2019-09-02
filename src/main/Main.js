@@ -23,7 +23,7 @@ function Main() {
 
   return (
     <React.Fragment>
-      <Hiro title="Expenses" />
+      <Hero title="Expenses" />
       <div className="main-page">
         {showNumPad ? (
           <NumberInput handleSubmit={handleSubmit} />

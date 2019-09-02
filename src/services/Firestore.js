@@ -75,7 +75,6 @@ function setBudgetById(newBudget, id = 'Yp8RFwZgIHrbRrHf0mIs') {
 }
 
 function getAllMonthlyExpensesById(id = 'uYJ87RqNL2vCFrbS8BEz') {
-  console.log('something')
   return db
     .collection('monthlyExpenses')
     .doc(id)
@@ -85,4 +84,12 @@ function getAllMonthlyExpensesById(id = 'uYJ87RqNL2vCFrbS8BEz') {
     .catch(err => console.error('error in getAllMonthlyExpensesById: ', err));
 }
 
-export { addDailyExpense, getDailyExpenses, getBudgetById, setBudgetById, getAllMonthlyExpensesById };
+function addMonthlyExpense(expense, id="uYJ87RqNL2vCFrbS8BEz"){
+  return db.collection('monthlyExpenses')
+  .doc(id)
+  .update(expense)
+  .then(() =>'added')
+  .catch(err => console.log('error in addMonthly is:', err));
+}
+
+export { addDailyExpense, getDailyExpenses, getBudgetById, setBudgetById, getAllMonthlyExpensesById, addMonthlyExpense };

@@ -75,21 +75,43 @@ function setBudgetById(newBudget, id = 'Yp8RFwZgIHrbRrHf0mIs') {
 }
 
 function getAllMonthlyExpensesById(id = 'uYJ87RqNL2vCFrbS8BEz') {
+  return (
+    db
+      .collection('monthlyExpenses')
+      .doc(id)
+      .get()
+      // gives us wierd snapShot
+      .then(snapShot => snapShot.data())
+      .catch(err => console.error('error in getAllMonthlyExpensesById: ', err))
+  );
+}
+
+function addMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
   return db
     .collection('monthlyExpenses')
     .doc(id)
-    .get()
-    // gives us wierd snapShot
-    .then(snapShot => snapShot.data())
-    .catch(err => console.error('error in getAllMonthlyExpensesById: ', err));
+    .update(expense)
+    .then(() => 'added')
+    .catch(err => console.log('error in addMonthlyExpense is:', err));
 }
 
-function addMonthlyExpense(expense, id="uYJ87RqNL2vCFrbS8BEz"){
-  return db.collection('monthlyExpenses')
-  .doc(id)
-  .update(expense)
-  .then(() =>'added')
-  .catch(err => console.log('error in addMonthly is:', err));
+function removeMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
+  let object= {}
+  object[expense] = firebase.firestore.FieldValue.delete();
+  return db
+    .collection('monthlyExpenses')
+    .doc(id)
+    .update(object)
+    .then(() => 'removed')
+    .catch(err => console.log('error in removeMonthlyExpense is:', err));
 }
 
-export { addDailyExpense, getDailyExpenses, getBudgetById, setBudgetById, getAllMonthlyExpensesById, addMonthlyExpense };
+export {
+  addDailyExpense,
+  getDailyExpenses,
+  getBudgetById,
+  setBudgetById,
+  getAllMonthlyExpensesById,
+  addMonthlyExpense,
+  removeMonthlyExpense
+};

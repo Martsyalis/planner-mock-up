@@ -14,12 +14,16 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-function addDailyExpense(type, price) {
+function addDailyExpenseById(type, price, id = 'reLVZYmMLfMTJViomSPP') {
+  let updateArray = firebase.firestore.FieldValue.arrayUnion;
   db.collection('dailyExpenses')
-    .add({
-      type: type,
-      price: price,
-      date: new Date()
+    .doc(id)
+    .update({
+      expensesArray: updateArray({
+        type: type,
+        price: price,
+        date: new Date()
+      })
     })
     .then(function(docRef) {})
     .catch(function(error) {
@@ -27,24 +31,17 @@ function addDailyExpense(type, price) {
     });
 }
 
-function getDailyExpenses() {
+function getDailyExpensesById(id = 'reLVZYmMLfMTJViomSPP') {
   return (
     db
       .collection('dailyExpenses')
-      .orderBy('date')
+      .doc(id)
       .get()
-      // gives us wierd snapShot
       .then(snapShot => {
-        let resultsArray = [];
-        // snapshot comes with forEach method
-        snapShot.forEach(result => {
-          let formatedDate = moment(result.data().date.toDate()).format(
-            'MMM Do'
-          );
-          let resultObject = { ...result.data(), ...{ date: formatedDate } }; // get the object and switch date to workable format
-          resultsArray.push(resultObject);
-        });
-        return resultsArray;
+        return snapShot.data().expensesArray.map(a => ({
+          ...a,
+          date: moment(a.date.toDate()).format('MMM Do')
+        }));
       })
       .catch(err => console.error('error in getDailyExpesnes: ', err))
   );
@@ -96,7 +93,7 @@ function addMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
 }
 
 function removeMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
-  let object= {}
+  let object = {};
   object[expense] = firebase.firestore.FieldValue.delete();
   return db
     .collection('monthlyExpenses')
@@ -107,8 +104,8 @@ function removeMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
 }
 
 export {
-  addDailyExpense,
-  getDailyExpenses,
+  addDailyExpenseById,
+  getDailyExpensesById,
   getBudgetById,
   setBudgetById,
   getAllMonthlyExpensesById,

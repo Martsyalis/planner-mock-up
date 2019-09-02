@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { getDailyExpenses } from '../services/Firestore';
+import { getDailyExpensesById } from '../services/Firestore';
 import { Hero } from '../commonComponents/commonComponents';
 
 function History() {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
   useEffect(() => {
-    getDailyExpenses().then(results => {
+    getDailyExpensesById().then(results => {
       handleExpensesHistory(results);
     });
-  },[]);
+  }, []);
   return (
     <div>
       <Hero title="History" />
-      <Table dailyExpensesHistory={dailyExpensesHistory}/>
+      <Table dailyExpensesHistory={dailyExpensesHistory} />
     </div>
   );
 }
 
-function Table({dailyExpensesHistory}) {
+function Table({ dailyExpensesHistory }) {
   const printExenses = dailyExpensesHistory.map((expense, i) => (
     <tr key={i} className="tr">
       <td className="td">{expense.date}</td>

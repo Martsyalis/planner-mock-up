@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { tileArray } from './tileArray';
 import './Main.css';
-import { addDailyExpense } from '../services/Firestore';
+import { addDailyExpenseById } from '../services/Firestore';
 import { Hero, NumberInput } from '../commonComponents/commonComponents';
 
 function Main() {
   const [type, setType] = useState('');
   const [showNumPad, setNumPad] = useState(false);
   function handleSubmit(price) {
-    addDailyExpense(type, price);
+    addDailyExpenseById(type, price);
     setNumPad(false);
   }
   const tilesComponents = tileArray.map((tile, i) => (

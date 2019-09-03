@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Context } from '../app/MyProvider';
 import moment from 'moment';
 import { getDailyExpensesById } from '../services/Firestore';
 import { Hero } from '../commonComponents/commonComponents';
 
 function History() {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
+  const {user} = useContext(Context);
   useEffect(() => {
-    getDailyExpensesById().then(results => {
+    getDailyExpensesById(user.dailyExpensesId).then(results => {
       handleExpensesHistory(results);
     });
   }, []);

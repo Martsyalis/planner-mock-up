@@ -14,7 +14,7 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-function addDailyExpenseById(type, price, id = 'reLVZYmMLfMTJViomSPP') {
+function addDailyExpenseById(type, price, id) {
   let updateArray = firebase.firestore.FieldValue.arrayUnion;
   db.collection('dailyExpenses')
     .doc(id)
@@ -31,7 +31,7 @@ function addDailyExpenseById(type, price, id = 'reLVZYmMLfMTJViomSPP') {
     });
 }
 
-function getDailyExpensesById(id = 'reLVZYmMLfMTJViomSPP') {
+function getDailyExpensesById(id) {
   return (
     db
       .collection('dailyExpenses')
@@ -58,7 +58,7 @@ function getBudgetById(id) {
     .catch(err => console.error('error in getBudgetById: ', err));
 }
 
-function setBudgetById(newBudget, id = 'Yp8RFwZgIHrbRrHf0mIs') {
+function setBudgetById(newBudget, id) {
   return db
     .collection('budget')
     .doc(id)
@@ -71,7 +71,7 @@ function setBudgetById(newBudget, id = 'Yp8RFwZgIHrbRrHf0mIs') {
     .catch(err => console.error('error in setBudgetById: ', err));
 }
 
-function getAllMonthlyExpensesById(id = 'uYJ87RqNL2vCFrbS8BEz') {
+function getAllMonthlyExpensesById(id) {
   return (
     db
       .collection('monthlyExpenses')
@@ -83,7 +83,7 @@ function getAllMonthlyExpensesById(id = 'uYJ87RqNL2vCFrbS8BEz') {
   );
 }
 
-function addMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
+function addMonthlyExpense(expense, id) {
   return db
     .collection('monthlyExpenses')
     .doc(id)
@@ -92,7 +92,7 @@ function addMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
     .catch(err => console.log('error in addMonthlyExpense is:', err));
 }
 
-function removeMonthlyExpense(expense, id = 'uYJ87RqNL2vCFrbS8BEz') {
+function removeMonthlyExpense(expense, id) {
   let object = {};
   object[expense] = firebase.firestore.FieldValue.delete();
   return db

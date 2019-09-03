@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../app/MyProvider';
+
 import { tileArray } from './tileArray';
 import './Main.css';
 import { addDailyExpenseById } from '../services/Firestore';
@@ -7,8 +9,10 @@ import { Hero, NumberInput } from '../commonComponents/commonComponents';
 function Main() {
   const [type, setType] = useState('');
   const [showNumPad, setNumPad] = useState(false);
+  const {user} = useContext(Context);
+
   function handleSubmit(price) {
-    addDailyExpenseById(type, price);
+    addDailyExpenseById(type, price, user.dailyExpensesId);
     setNumPad(false);
   }
   const tilesComponents = tileArray.map((tile, i) => (

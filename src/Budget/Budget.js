@@ -20,13 +20,13 @@ function Budget() {
   const [monthlyExpenses, setMonthlyExpenses] = useState('');
   const [showAddField, handleShowAddField] = useState(false);
   const [input, setInput] = useState('');
-  const context = useContext(Context);
-  console.log('context is: ', context)
+  const {user} = useContext(Context);
+  console.log('User from context is: ', user)
   useEffect(() => {
-    getBudgetById(context.user.budgetId).then(result => {
+    getBudgetById(user.budgetId).then(result => {
       setBudget(result.monthlyBudget);
     });
-    getAllMonthlyExpensesById().then(result => {
+    getAllMonthlyExpensesById(user.monthlyExpensesId).then(result => {
       setMonthlyExpenses(result);
     });
   }, []);
@@ -34,13 +34,12 @@ function Budget() {
   //TODO: add spinner
   const functionObj = {
     editMonthlyBudget(budget) {
-      setBudgetById(budget).then(() => {
+      setBudgetById(budget, user.budgetId).then(() => {
         setBudget(budget);
         setInput('');
       });
     }
   };
-  // console.log('user from context is: ', user);
   return (
     <React.Fragment>
       {input ? (
@@ -52,6 +51,7 @@ function Budget() {
               title="Balance"
               monthlyBudget={monthlyBudget}
               monthlyExpenses={monthlyExpenses}
+              dailyExpensesId={user.dailyExpensesId}
             />
           )}
           <MonthyBudgetCard
@@ -68,6 +68,7 @@ function Budget() {
             handleShowAddField={handleShowAddField}
             addMonthlyExpense={addMonthlyExpense}
             removeMonthlyExpense={removeMonthlyExpense}
+            monthlyExpensesId={user.monthlyExpensesId}
           />
         </React.Fragment>
       )}

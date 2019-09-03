@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Hero, NumberInput, Card } from '../commonComponents/commonComponents';
 import { getDailyExpensesById } from '../services/Firestore';
 
+
 const MonthlyExpensesCard = Card(
   ({
     monthlyObj,
@@ -10,10 +11,11 @@ const MonthlyExpensesCard = Card(
     showAddField,
     setMonthlyExpenses,
     removeMonthlyExpense,
-    addMonthlyExpense
+    addMonthlyExpense,
+    monthlyExpensesId
   }) => {
     function handleRemove(expense) {
-      removeMonthlyExpense(expense);
+      removeMonthlyExpense(expense, monthlyExpensesId);
       const newMonthlyObj = { ...monthlyObj };
       delete newMonthlyObj[expense];
       setMonthlyExpenses(newMonthlyObj);
@@ -44,6 +46,7 @@ const MonthlyExpensesCard = Card(
               setMonthlyExpenses={setMonthlyExpenses}
               monthlyObj={monthlyObj}
               addMonthlyExpense={addMonthlyExpense}
+              monthlyExpensesId={monthlyExpensesId}
             />
           )}
           {printExenses()}
@@ -57,14 +60,15 @@ function AddField({
   handleShowAddField,
   setMonthlyExpenses,
   monthlyObj,
-  addMonthlyExpense
+  addMonthlyExpense,
+  monthlyExpensesId
 }) {
   const [newExpenseType, handleNewExpenseType] = useState('');
   const [newExpensePrice, handleNewExpensePrice] = useState('');
   const addExpense = () => {
     let expenseObj = {};
     expenseObj[newExpenseType] = newExpensePrice;
-    addMonthlyExpense(expenseObj).then(() => {
+    addMonthlyExpense(expenseObj, monthlyExpensesId).then(() => {
       setMonthlyExpenses({ ...monthlyObj, ...expenseObj });
       handleNewExpenseType('');
       handleNewExpensePrice('');
@@ -104,10 +108,10 @@ const MonthyBudgetCard = Card(({ monthlyBudget }) => (
   <p>Your Monthly Budget is: ${monthlyBudget}</p>
 ));
 
-const BalanceCard = Card(({ monthlyBudget, monthlyExpenses }) => {
+const BalanceCard = Card(({ monthlyBudget, monthlyExpenses, dailyExpensesId }) => {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
   useEffect(() => {
-    getDailyExpensesById().then(results => {
+    getDailyExpensesById(dailyExpensesId).then(results => {
       handleExpensesHistory(results);
     });
   }, []);

@@ -40,7 +40,7 @@ function getDailyExpensesById(id = 'reLVZYmMLfMTJViomSPP') {
       .then(snapShot => {
         return snapShot.data().expensesArray.map(a => ({
           ...a,
-          date: moment(a.date.toDate()).format('MMM Do')
+          date: a.date.toDate()
         }));
       })
       .catch(err => console.error('error in getDailyExpesnes: ', err))

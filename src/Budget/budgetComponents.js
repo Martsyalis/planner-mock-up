@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Hero, NumberInput, Card } from '../commonComponents/commonComponents';
-import { getDailyExpenses } from '../services/Firestore';
+import { getDailyExpensesById } from '../services/Firestore';
 
 const MonthlyExpensesCard = Card(
   ({
@@ -106,28 +106,29 @@ const MonthyBudgetCard = Card(({ monthlyBudget }) => (
 const BalanceCard = Card(({ monthlyBudget, monthlyExpenses }) => {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
   useEffect(() => {
-    getDailyExpenses().then(results => {
+    getDailyExpensesById().then(results => {
       handleExpensesHistory(results);
     });
   }, []);
   function monthlyExpensesBalance() {
     return Object.keys(monthlyExpenses).reduce((accumulator, currentValue) => {
-      console.log(' current value', parseFloat(monthlyExpenses[currentValue]));
       return (
         accumulator - parseFloat(parseFloat(monthlyExpenses[currentValue]))
       );
     }, parseFloat(monthlyBudget));
   }
 
-  function allExpensesBalance(){
-    
-    
+  function allExpensesBalance() {
+    return dailyExpensesHistory.reduce(
+      (a, value) => parseFloat(a) - parseFloat(value.price),
+      parseFloat(monthlyExpensesBalance())
+    );
   }
-
+  console.log(allExpensesBalance());
   return (
     <React.Fragment>
-      <p>Your Monthly Balance is: {monthlyExpensesBalance()} </p>
-      <p>Your Balance this Month so far is : {}</p>
+      <p>Total Balance This Month: ${allExpensesBalance()}</p>
+      <p>Your Monthly Balance is: ${monthlyExpensesBalance()} </p>
     </React.Fragment>
   );
 });

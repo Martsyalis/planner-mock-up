@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Context } from '../app/MyProvider';
 import {
   getBudgetById,
   setBudgetById,
@@ -19,8 +20,10 @@ function Budget() {
   const [monthlyExpenses, setMonthlyExpenses] = useState('');
   const [showAddField, handleShowAddField] = useState(false);
   const [input, setInput] = useState('');
+  const context = useContext(Context);
+  console.log('context is: ', context)
   useEffect(() => {
-    getBudgetById().then(result => {
+    getBudgetById(context.user.budgetId).then(result => {
       setBudget(result.monthlyBudget);
     });
     getAllMonthlyExpensesById().then(result => {
@@ -37,6 +40,7 @@ function Budget() {
       });
     }
   };
+  // console.log('user from context is: ', user);
   return (
     <React.Fragment>
       {input ? (
@@ -55,6 +59,7 @@ function Budget() {
             monthlyBudget={monthlyBudget}
             handleEdit={() => setInput('editMonthlyBudget')}
           />
+         
           <MonthlyExpensesCard
             title="Monthly Expenses"
             monthlyObj={monthlyExpenses}

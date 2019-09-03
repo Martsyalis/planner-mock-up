@@ -47,7 +47,7 @@ function getDailyExpensesById(id = 'reLVZYmMLfMTJViomSPP') {
   );
 }
 
-function getBudgetById(id = 'Yp8RFwZgIHrbRrHf0mIs') {
+function getBudgetById(id) {
   return db
     .collection('budget')
     .doc(id)

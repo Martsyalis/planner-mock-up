@@ -40,7 +40,12 @@ function NumberInput({ handleSubmit }) {
 function Card(WrappedComponent) {
   return class extends React.Component {
     render() {
-      const { title, handleEdit, handleShowAddField, showAddField } = this.props;
+      const {
+        title,
+        handleEdit,
+        handleShowAddField,
+        showAddField
+      } = this.props;
       return (
         <article className="message is-info">
           <div className="message-header">
@@ -50,7 +55,10 @@ function Card(WrappedComponent) {
                 <img src={editIcon} />
               </span>
             ) : (
-                <span className="icon" onClick={()=>handleShowAddField(!showAddField)}>
+              <span
+                className="icon"
+                onClick={() => handleShowAddField(!showAddField)}
+              >
                 <img src={editIcon} />
               </span>
             )}

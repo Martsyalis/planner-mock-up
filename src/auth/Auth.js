@@ -5,9 +5,18 @@ import { SignUp } from '../services/firebase-auth';
 export default function Auth() {
   const [email, handleEmail] = useState('');
   const [password, handlePassword] = useState('');
+  const {user, handleUser} = useContext(Context);
 
-  function handleSubmit() {
-    SignUp(email, password);
+async function handleSubmit() {
+    try{
+        console.log('handle submit');
+        const uid = await SignUp(email, password)
+        handleUser(uid);
+    }
+    catch (err){
+        console.log('error in handle submit is: ', err);
+    }
+   
   }
   return (
     <div className="box">
@@ -46,7 +55,7 @@ export default function Auth() {
         <p className="control">
           <button
             className="button is-success"
-            onClick={() => handleSubmit()}
+            onClick={handleSubmit}
           >
             Login
           </button>

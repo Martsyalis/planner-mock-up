@@ -32,19 +32,17 @@ function addDailyExpenseById(type, price, id) {
 }
 
 function getDailyExpensesById(id) {
-  return (
-    db
-      .collection('dailyExpenses')
-      .doc(id)
-      .get()
-      .then(snapShot => {
-        return snapShot.data().expensesArray.map(a => ({
-          ...a,
-          date: a.date.toDate()
-        }));
-      })
-      .catch(err => console.error('error in getDailyExpesnes: ', err))
-  );
+  return db
+    .collection('dailyExpenses')
+    .doc(id)
+    .get()
+    .then(snapShot => {
+      return snapShot.data().expensesArray.map(a => ({
+        ...a,
+        date: a.date.toDate()
+      }));
+    })
+    .catch(err => console.error('error in getDailyExpesnes: ', err));
 }
 
 function getBudgetById(id) {
@@ -103,6 +101,31 @@ function removeMonthlyExpense(expense, id) {
     .catch(err => console.log('error in removeMonthlyExpense is:', err));
 }
 
+async function initiateUser(uid, email) {
+  try {
+    await db
+      .collection('budget')
+      .doc(uid)
+      .set({ monthlyBudget: 0 });
+    await db
+      .collection('dailyExpenses')
+      .doc(uid)
+      .set({ expensesArray: [] });
+    await db
+      .collection('monthlyExpenses')
+      .doc(uid)
+      .set({ example: '0' });
+    await db
+      .collection('users')
+      .doc(uid)
+      .set({email});
+      console.log('returning');
+    return {uid, email};
+  } catch (err) {
+    console.log('error is: ', err);
+  }
+}
+
 export {
   addDailyExpenseById,
   getDailyExpensesById,
@@ -110,5 +133,6 @@ export {
   setBudgetById,
   getAllMonthlyExpensesById,
   addMonthlyExpense,
-  removeMonthlyExpense
+  removeMonthlyExpense,
+  initiateUser
 };

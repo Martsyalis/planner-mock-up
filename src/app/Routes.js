@@ -8,7 +8,8 @@ import Auth from '../auth/Auth';
 function Routes() {
   return (
     <Switch>
-      <Route exact path="/signUp" component={Auth} />
+      <Route exact path="/sign-up" component={Auth} />
+      <Route exact path="/sign-in" component={Auth} />
       <Route exact path="/" component={Main} />
       <Route exact path="/history" component={History} />
       <Route exact path="/budget" component={Budget} />

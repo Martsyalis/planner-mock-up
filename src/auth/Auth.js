@@ -1,25 +1,32 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Context } from '../app/MyProvider';
-import { SignUp } from '../services/firebase-auth';
+import { signUp, signIn } from '../services/firebase-auth';
+import { FaEnvelope, FaLock } from 'react-icons/lib/fa';
+import './Auth.css';
 
-export default function Auth() {
+export default function Auth({ match }) {
+  const isSignUp = match.url === '/sign-up';
   const [email, handleEmail] = useState('');
   const [password, handlePassword] = useState('');
-  const {user, handleUser} = useContext(Context);
-
-async function handleSubmit() {
-    try{
-        console.log('handle submit');
-        const uid = await SignUp(email, password)
-        handleUser(uid);
-    }
-    catch (err){
-        console.log('error in handle submit is: ', err);
-    }
-   
+  const { user, handleUser } = useContext(Context);
+  function handleSignUp(event) {
+    event.preventDefault();
+    signUp(email, password)
+      .then(uid => handleUser(uid))
+      .catch(err => 'error in handleSignUp: ', err);
   }
+
+  function handleSignIn(event) {
+    event.preventDefault();
+    signIn(email, password).then(uid => handleUser(uid));
+  }
+
   return (
-    <div className="box">
+    <form
+      className="box auth-box"
+      onSubmit={isSignUp ? handleSignUp : handleSignIn}
+    >
       <div className="field">
         <p className="control has-icons-left has-icons-right">
           <input
@@ -30,10 +37,7 @@ async function handleSubmit() {
             onChange={event => handleEmail(event.target.value)}
           />
           <span className="icon is-small is-left">
-            <i className="fas fa-envelope"></i>
-          </span>
-          <span className="icon is-small is-right">
-            <i className="fas fa-check"></i>
+            <FaEnvelope className="fas" />
           </span>
         </p>
       </div>
@@ -43,24 +47,31 @@ async function handleSubmit() {
             className="input"
             type="password"
             placeholder="Password"
+            required
+            minLength="6"
             value={password}
             onChange={event => handlePassword(event.target.value)}
           />
           <span className="icon is-small is-left">
-            <i className="fas fa-lock"></i>
+            <FaLock className="fas" />
           </span>
         </p>
       </div>
       <div className="field">
-        <p className="control">
-          <button
-            className="button is-success"
-            onClick={handleSubmit}
-          >
-            Login
-          </button>
-        </p>
+        <button className="button is-success">
+          {isSignUp ? 'Sign up' : 'Sign in'}
+        </button>
       </div>
-    </div>
+      {isSignUp ? (
+        <p>
+          Already have an accout?<Link to="./sign-in"> Sign in here</Link>
+        </p>
+      ) : (
+        <p>
+          Don't Have an account yet?
+          <Link to="/sign-up"> Sign up here</Link>
+        </p>
+      )}
+    </form>
   );
 }

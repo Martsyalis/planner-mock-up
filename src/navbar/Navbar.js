@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { signOut } from '../services/firebase-auth';
 import './Navbar.css';
 
 function Navbar() {
@@ -46,6 +47,7 @@ function NavMenu({ isBurgerMenu, handleBurger }) {
         <MenuLink to="/" text="Home" />
         <MenuLink to="/budget" text="Budget" />
         <MenuLink to="/history" text="History" />
+        <p className='navbar-item' onClick={signOut}>Sign out</p>
       </div>
     </div>
   );
@@ -63,5 +65,6 @@ function MenuLink({ to, text }) {
     </NavLink>
   );
 }
+
 
 export default Navbar;

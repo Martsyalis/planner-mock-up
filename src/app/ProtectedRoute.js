@@ -7,7 +7,6 @@ export default function ProtectedRoute({
   render,
   ...rest
 }) {
-  console.log('in protected route', valid);
   return (
     <Route
       {...rest}

@@ -22,9 +22,7 @@ function signOut() {
   return firebase
     .auth()
     .signOut()
-    .then(() => {
-      console.log('signed out');
-    })
+    .then()
     .catch(error => console.log('error in catch: ', error));
 }
 

@@ -131,7 +131,6 @@ const BalanceCard = Card(({ monthlyBudget, monthlyExpenses, dailyExpensesId }) =
       }
     }, parseFloat(monthlyExpensesBalance()));
   }
-  console.log(allExpensesBalance());
   return (
     <React.Fragment>
       <p>

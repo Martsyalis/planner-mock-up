@@ -119,7 +119,6 @@ async function initiateUser(uid, email) {
       .collection('users')
       .doc(uid)
       .set({email});
-      console.log('returning');
     return {uid, email};
   } catch (err) {
     console.log('error is: ', err);

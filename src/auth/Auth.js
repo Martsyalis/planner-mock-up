@@ -5,7 +5,7 @@ import { signUp, signIn } from '../services/firebase-auth';
 import { FaEnvelope, FaLock } from 'react-icons/lib/fa';
 import './Auth.css';
 
-export default function Auth({ match }) {
+export default function Auth({ match, history }) {
   const isSignUp = match.url === '/sign-up';
   const [email, handleEmail] = useState('');
   const [password, handlePassword] = useState('');
@@ -13,13 +13,19 @@ export default function Auth({ match }) {
   function handleSignUp(event) {
     event.preventDefault();
     signUp(email, password)
-      .then(uid => handleUser(uid))
+      .then(uid => {
+        handleUser(uid);
+        history.push('/budget');
+      })
       .catch(err => 'error in handleSignUp: ', err);
   }
 
   function handleSignIn(event) {
     event.preventDefault();
-    signIn(email, password).then(uid => handleUser(uid));
+    signIn(email, password).then(uid => {
+      handleUser(uid);
+      history.push('/budget');
+    });
   }
 
   return (

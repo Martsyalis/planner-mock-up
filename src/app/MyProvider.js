@@ -4,10 +4,13 @@ import { listenForAuthChange } from '../services/firebase-auth';
 export const Context = React.createContext();
 
 function MyProvider(props) {
-  const [user, handleUser] = useState('');
+  const [user, handleUser] = useState();
+  const [isUserChecked, handleIsUserChecked] = useState(false);
+
   useEffect(() => {
     listenForAuthChange(user => {
-      user ? handleUser({ uid: user.uid, email: user.email }) : handleUser('');
+      user ? handleUser({ uid: user.uid, email: user.uid }) : handleUser('');
+      handleIsUserChecked(true)
     });
   }, []);
 
@@ -15,7 +18,8 @@ function MyProvider(props) {
     <Context.Provider
       value={{
         user,
-        handleUser
+        handleUser,
+        isUserChecked
       }}
     >
       {props.children}

@@ -7,11 +7,13 @@ export default function ProtectedRoute({
   render,
   ...rest
 }) {
-    console.log('in protected route', valid);
-  return <Route
-    {...rest}
-    render={props => {
-      return valid ? <Component {...props} /> : <Redirect to="/sign-up" />;
-    }}
-  />;
+  console.log('in protected route', valid);
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return valid ? <Component {...props} /> : <Redirect to="/sign-up" />;
+      }}
+    />
+  );
 }

@@ -8,8 +8,8 @@ import Budget from '../budget/Budget';
 import Auth from '../auth/Auth';
 
 function Routes() {
-  const { user } = useContext(Context);
-  console.log('in routes user is: ', user);
+  const { user, isUserChecked } = useContext(Context);
+  if(!isUserChecked) return <div/>;
   return (
     <Switch>
       <Route exact path="/sign-up" component={Auth} />

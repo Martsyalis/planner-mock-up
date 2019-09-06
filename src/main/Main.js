@@ -12,7 +12,7 @@ function Main() {
   const {user} = useContext(Context);
 
   function handleSubmit(price) {
-    addDailyExpenseById(type, price, user.dailyExpensesId);
+    addDailyExpenseById(type, price, user.uid);
     setNumPad(false);
   }
   const tilesComponents = tileArray.map((tile, i) => (

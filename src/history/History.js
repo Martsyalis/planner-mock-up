@@ -8,7 +8,7 @@ function History() {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
   const {user} = useContext(Context);
   useEffect(() => {
-    getDailyExpensesById(user.dailyExpensesId).then(results => {
+    getDailyExpensesById(user.uid).then(results => {
       handleExpensesHistory(results);
     });
   }, []);

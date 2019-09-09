@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdEdit } from 'react-icons/lib/md';
-import { FaPlusCircle } from 'react-icons/lib/fa';
 
 // import addIcon from '../assets/add-icon.png';
 
@@ -70,4 +69,23 @@ function Card(WrappedComponent) {
   };
 }
 
-export { Hero, NumberInput, Card };
+function Notification({
+  text,
+  handleClose,
+  timeout = 2000,
+  type = 'is-success'
+}) {
+  useEffect(() => {
+    setTimeout(() => {
+      handleClose();
+    }, timeout);
+  });
+  return (
+    <div className={`notification ${type} is-rounded margin-small`}>
+      <button className="delete" onClick={handleClose}></button>
+      {text}
+    </div>
+  );
+}
+
+export { Hero, NumberInput, Card, Notification };

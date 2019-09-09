@@ -4,15 +4,24 @@ import { Context } from '../app/MyProvider';
 import { tileArray } from './tileArray';
 import './Main.css';
 import { addDailyExpenseById } from '../services/Firestore';
-import { Hero, NumberInput } from '../commonComponents/commonComponents';
+import {
+  Hero,
+  NumberInput,
+  Notification
+} from '../commonComponents/commonComponents';
 
 function Main() {
   const [type, setType] = useState('');
   const [showNumPad, setNumPad] = useState(false);
+  const [showNotification, handleShowNotification] = useState(false);
+  const [notificationText, setNotificationText] = useState('');
   const { user } = useContext(Context);
 
   function handleSubmit(price) {
-    addDailyExpenseById(type, price, user.uid);
+    addDailyExpenseById(type, price, user.uid).then(() => {
+      setNotificationText(`Added ${price} for ${type}`);
+      handleShowNotification(true);
+    });
     setNumPad(false);
   }
   const tilesComponents = tileArray.map((tile, i) => (
@@ -29,6 +38,12 @@ function Main() {
     <React.Fragment>
       <Hero title="Expenses" />
       <div className="main-page">
+        {showNotification && (
+          <Notification
+            handleClose={() => handleShowNotification(false)}
+            text={notificationText}
+          />
+        )}
         {showNumPad ? (
           <NumberInput handleSubmit={handleSubmit} setNumPad={setNumPad} />
         ) : (

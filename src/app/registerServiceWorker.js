@@ -7,9 +7,10 @@
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
-console.log('service worker is running');
-export default function register () { // Register the service worker
-  if ('serviceWorker' in navigator) {
+export default function register() {
+  // Register the service worker
+  if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+    console.log('service worker is in register');
     window.addEventListener('load', () => {
       const swUrl = 'service-worker.js';
       navigator.serviceWorker
@@ -42,7 +43,7 @@ export default function register () { // Register the service worker
   }
 }
 
-export function unregister () {
+export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister();

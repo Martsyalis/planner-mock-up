@@ -6,6 +6,7 @@ import Main from '../main/Main';
 import History from '../history/History';
 import Budget from '../budget/Budget';
 import Auth from '../auth/Auth';
+import Charts from '../charts/Charts';
 
 function Routes() {
   const { user, isUserChecked } = useContext(Context);
@@ -14,6 +15,8 @@ function Routes() {
     <Switch>
       <Route exact path="/sign-up" component={Auth} />
       <Route exact path="/sign-in" component={Auth} />
+      <Route exact path="/Charts" component={Charts} />
+
       <ProtectedRoute valid={!!user} exact path="/" component={Main} />
       <ProtectedRoute
         valid={!!user}

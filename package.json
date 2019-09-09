@@ -31,6 +31,7 @@
     "webpack-manifest-plugin": "^2.0.4"
   },
   "dependencies": {
+    "@nivo/pie": "^0.59.1",
     "autoprefixer": "^8.6.5",
     "babel-eslint": "^8.2.6",
     "babel-plugin-transform-class-properties": "^6.24.1",

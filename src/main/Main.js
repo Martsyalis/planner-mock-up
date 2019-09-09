@@ -9,7 +9,7 @@ import { Hero, NumberInput } from '../commonComponents/commonComponents';
 function Main() {
   const [type, setType] = useState('');
   const [showNumPad, setNumPad] = useState(false);
-  const {user} = useContext(Context);
+  const { user } = useContext(Context);
 
   function handleSubmit(price) {
     addDailyExpenseById(type, price, user.uid);

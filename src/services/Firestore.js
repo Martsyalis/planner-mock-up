@@ -118,8 +118,8 @@ async function initiateUser(uid, email) {
     await db
       .collection('users')
       .doc(uid)
-      .set({email});
-    return {uid, email};
+      .set({ email });
+    return { uid, email };
   } catch (err) {
     console.log('error is: ', err);
   }

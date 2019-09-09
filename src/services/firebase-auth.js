@@ -1,6 +1,6 @@
 import './Firestore';
 import firebase from 'firebase/app';
-import 'firebase/auth'
+import 'firebase/auth';
 import { initiateUser } from '../services/Firestore';
 
 function signUp(email, password) {

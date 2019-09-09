@@ -6,7 +6,7 @@ import { Hero } from '../commonComponents/commonComponents';
 
 function History() {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
-  const {user} = useContext(Context);
+  const { user } = useContext(Context);
   useEffect(() => {
     getDailyExpensesById(user.uid).then(results => {
       handleExpensesHistory(results);

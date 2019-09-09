@@ -30,7 +30,7 @@ function Main() {
       <Hero title="Expenses" />
       <div className="main-page">
         {showNumPad ? (
-          <NumberInput handleSubmit={handleSubmit} />
+          <NumberInput handleSubmit={handleSubmit} setNumPad={setNumPad} />
         ) : (
           <div className="tile-flex-parent">{tilesComponents}</div>
         )}

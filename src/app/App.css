@@ -1,6 +1,19 @@
-.center-child {
+.flex-child-center {
   display: flex;
   justify-content: center;
+}
+
+.flex-child-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.margin-small {
+  margin: 1rem;
+}
+
+.margin-right-small {
+  margin-right: 1rem;
 }
 
 .margin-bottom {
@@ -12,7 +25,7 @@
   margin-bottom: 2rem;
 }
 
-.fixed-right{
+.fixed-right {
   position: fixed;
   right: 1rem;
 }

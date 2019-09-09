@@ -6,18 +6,26 @@ import { FaPlusCircle } from 'react-icons/lib/fa';
 
 function Hero({ title }) {
   return (
-    <div className="center-child margin-bottom">
+    <div className="flex-child-center margin-bottom">
       <h1 className="title">{title}</h1>
     </div>
   );
 }
 
 // handle Submit has to take the number as the first parameter
-function NumberInput({ handleSubmit }) {
+function NumberInput({ handleSubmit, setNumPad }) {
   const [number, setNumber] = useState('');
   return (
     <div>
-      <div className="center-child">
+      <div className="flex-child-right margin-right-small">
+        <p
+          className="delete is-large"
+          aria-label="delete"
+          onClick={() => setNumPad(false)}
+        ></p>
+      </div>
+
+      <div className="flex-child-center margin-small">
         <input
           autoFocus
           className="input is-rounded price-input"
@@ -27,7 +35,7 @@ function NumberInput({ handleSubmit }) {
           onChange={event => setNumber(event.target.value)}
         />
       </div>
-      <div className="center-child">
+      <div className="flex-child-center">
         <div
           className="button is-link is-rounded number-input-button"
           onClick={() => handleSubmit(number)}

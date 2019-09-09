@@ -16,7 +16,8 @@ const db = firebase.firestore();
 
 function addDailyExpenseById(type, price, id) {
   let updateArray = firebase.firestore.FieldValue.arrayUnion;
-  db.collection('dailyExpenses')
+  return db
+    .collection('dailyExpenses')
     .doc(id)
     .update({
       expensesArray: updateArray({
@@ -25,8 +26,8 @@ function addDailyExpenseById(type, price, id) {
         date: new Date()
       })
     })
-    .then(function(docRef) {})
-    .catch(function(error) {
+    .then(docRef => 'success')
+    .catch(error => {
       console.error('Error adding document: ', error);
     });
 }
@@ -37,10 +38,13 @@ function getDailyExpensesById(id) {
     .doc(id)
     .get()
     .then(snapShot => {
-      return snapShot.data().expensesArray.map(a => ({
-        ...a,
-        date: a.date.toDate()
-      })).reverse();
+      return snapShot
+        .data()
+        .expensesArray.map(a => ({
+          ...a,
+          date: a.date.toDate()
+        }))
+        .reverse();
     })
     .catch(err => console.error('error in getDailyExpesnes: ', err));
 }

@@ -44,13 +44,14 @@ function Budget() {
       });
     }
   };
+  const displayBalanceCard = monthlyBudget && monthlyExpenses
   return (
     <React.Fragment>
       {input ? (
         <NumberInput handleSubmit={functionObj[input]} />
       ) : (
         <React.Fragment>
-          {monthlyBudget && monthlyExpenses && (
+          {!!displayBalanceCard && (
             <BalanceCard
               title="Balance"
               monthlyBudget={monthlyBudget}

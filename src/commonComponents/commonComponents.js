@@ -54,14 +54,14 @@ function Card(WrappedComponent) {
             <p>{title}</p>
             {handleEdit ? (
               <span className="icon" onClick={handleEdit}>
-                <img src={MdEdit} />
+                <MdEdit />
               </span>
             ) : (
               <span
                 className="icon"
                 onClick={() => handleShowAddField(!showAddField)}
               >
-                <img src={editIcon} />
+                <MdEdit />
               </span>
             )}
           </div>

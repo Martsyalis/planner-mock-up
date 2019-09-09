@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import editIcon from '../assets/edit-icon.svg';
+import { MdEdit } from 'react-icons/lib/md';
+import { FaPlusCircle } from 'react-icons/lib/fa';
+
 // import addIcon from '../assets/add-icon.png';
 
 function Hero({ title }) {
@@ -52,7 +54,7 @@ function Card(WrappedComponent) {
             <p>{title}</p>
             {handleEdit ? (
               <span className="icon" onClick={handleEdit}>
-                <img src={editIcon} />
+                <img src={MdEdit} />
               </span>
             ) : (
               <span

@@ -7,16 +7,14 @@ function signUp(email, password) {
   return firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then(({ user }) => initiateUser(user.uid, user.email))
-    .catch(err => console.log('error on signUp: ', err));
+    .then(({ user }) => initiateUser(user.uid, user.email));
 }
 
 function signIn(email, password) {
   return firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(({ user }) => ({ uid: user.uid, email: user.email }))
-    .catch(err => console.log('error in sign in: ', err));
+    .then(({ user }) => ({ uid: user.uid, email: user.email }));
 }
 
 function signOut() {

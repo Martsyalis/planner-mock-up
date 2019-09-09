@@ -40,7 +40,7 @@ function getDailyExpensesById(id) {
       return snapShot.data().expensesArray.map(a => ({
         ...a,
         date: a.date.toDate()
-      }));
+      })).reverse();
     })
     .catch(err => console.error('error in getDailyExpesnes: ', err));
 }
@@ -118,8 +118,8 @@ async function initiateUser(uid, email) {
     await db
       .collection('users')
       .doc(uid)
-      .set({email});
-    return {uid, email};
+      .set({ email });
+    return { uid, email };
   } catch (err) {
     console.log('error is: ', err);
   }

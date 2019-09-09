@@ -10,7 +10,7 @@ function MyProvider(props) {
   useEffect(() => {
     listenForAuthChange(user => {
       user ? handleUser({ uid: user.uid, email: user.uid }) : handleUser('');
-      handleIsUserChecked(true)
+      handleIsUserChecked(true);
     });
   }, []);
 

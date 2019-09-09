@@ -3,7 +3,6 @@ import moment from 'moment';
 import { Hero, NumberInput, Card } from '../commonComponents/commonComponents';
 import { getDailyExpensesById } from '../services/Firestore';
 
-
 const MonthlyExpensesCard = Card(
   ({
     monthlyObj,
@@ -108,38 +107,43 @@ const MonthyBudgetCard = Card(({ monthlyBudget }) => (
   <p>Your Monthly Budget is: ${monthlyBudget}</p>
 ));
 
-const BalanceCard = Card(({ monthlyBudget, monthlyExpenses, dailyExpensesId }) => {
-  const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
-  useEffect(() => {
-    getDailyExpensesById(dailyExpensesId).then(results => {
-      handleExpensesHistory(results);
-    });
-  }, []);
-  function monthlyExpensesBalance() {
-    return Object.keys(monthlyExpenses).reduce((accumulator, currentValue) => {
-      return (
-        accumulator - parseFloat(parseFloat(monthlyExpenses[currentValue]))
+const BalanceCard = Card(
+  ({ monthlyBudget, monthlyExpenses, dailyExpensesId }) => {
+    const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
+    useEffect(() => {
+      getDailyExpensesById(dailyExpensesId).then(results => {
+        handleExpensesHistory(results);
+      });
+    }, []);
+    function monthlyExpensesBalance() {
+      return Object.keys(monthlyExpenses).reduce(
+        (accumulator, currentValue) => {
+          return (
+            accumulator - parseFloat(parseFloat(monthlyExpenses[currentValue]))
+          );
+        },
+        parseFloat(monthlyBudget)
       );
-    }, parseFloat(monthlyBudget));
-  }
+    }
 
-  function allExpensesBalance() {
-    return dailyExpensesHistory.reduce((a, value) => {
+    function allExpensesBalance() {
+      return dailyExpensesHistory.reduce((a, value) => {
         // checks if the expenses happened this month
-      if (moment(value.date).isSame(moment(), 'month')) {
-        return parseFloat(a) - parseFloat(value.price);
-      }
-    }, parseFloat(monthlyExpensesBalance()));
+        if (moment(value.date).isSame(moment(), 'month')) {
+          return parseFloat(a) - parseFloat(value.price);
+        }
+      }, parseFloat(monthlyExpensesBalance()));
+    }
+    return (
+      <React.Fragment>
+        <p>
+          Total Balance This Month: $
+          {allExpensesBalance() || monthlyExpensesBalance()}
+        </p>
+        <p>Your Monthly Balance is: ${monthlyExpensesBalance()} </p>
+      </React.Fragment>
+    );
   }
-  return (
-    <React.Fragment>
-      <p>
-        Total Balance This Month: $
-        {allExpensesBalance() || monthlyExpensesBalance()}
-      </p>
-      <p>Your Monthly Balance is: ${monthlyExpensesBalance()} </p>
-    </React.Fragment>
-  );
-});
+);
 
 export { MonthlyExpensesCard, MonthyBudgetCard, BalanceCard };

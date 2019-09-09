@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import editIcon from '../assets/edit-icon.svg';
+import { MdEdit } from 'react-icons/lib/md';
+import { FaPlusCircle } from 'react-icons/lib/fa';
+
 // import addIcon from '../assets/add-icon.png';
 
 function Hero({ title }) {
@@ -40,26 +42,14 @@ function NumberInput({ handleSubmit }) {
 function Card(WrappedComponent) {
   return class extends React.Component {
     render() {
-      const {
-        title,
-        handleEdit,
-        handleShowAddField,
-        showAddField
-      } = this.props;
+      const { title, handleEdit } = this.props;
       return (
         <article className="message is-info">
           <div className="message-header">
             <p>{title}</p>
-            {handleEdit ? (
+            {handleEdit && (
               <span className="icon" onClick={handleEdit}>
-                <img src={editIcon} />
-              </span>
-            ) : (
-              <span
-                className="icon"
-                onClick={() => handleShowAddField(!showAddField)}
-              >
-                <img src={editIcon} />
+                <MdEdit />
               </span>
             )}
           </div>

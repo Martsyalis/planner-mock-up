@@ -129,6 +129,33 @@ async function initiateUser(uid, email) {
   }
 }
 
+function getDailyExpensesforChart(id) {
+  return db
+    .collection('dailyExpenses')
+    .doc(id)
+    .get()
+    .then(snapShot => {
+      return aggregateArray(snapShot.data().expensesArray);
+    })
+    .catch(err => console.error('error in getDailyExpesnes: ', err));
+}
+
+function aggregateArray(arr) {
+  let aggregatedArray = [];
+  let reduced = arr.reduce((acc, val) => {
+    if (!acc[val.type]) {
+      acc[val.type] = parseFloat(val.price);
+    } else {
+      acc[val.type] += parseFloat(val.price);
+    }
+    return acc;
+  }, {});
+  for (let key in reduced) {
+    aggregatedArray.push({ value: reduced[key], id: key });
+  }
+  return aggregatedArray;
+}
+
 export {
   addDailyExpenseById,
   getDailyExpensesById,
@@ -137,5 +164,6 @@ export {
   getAllMonthlyExpensesById,
   addMonthlyExpense,
   removeMonthlyExpense,
-  initiateUser
+  initiateUser,
+  getDailyExpensesforChart
 };

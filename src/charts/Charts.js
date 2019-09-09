@@ -1,45 +1,34 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Context } from '../app/MyProvider';
+
 import { ResponsivePie } from '@nivo/pie';
 import { Hero } from '../commonComponents/commonComponents';
-
-const chartData = [
-  {
-    id: 'coffee',
-    value: 200
-  },
-  {
-    id: 'transport',
-    value: 100
-  },
-  {
-    id: 'lunch',
-    value: 50
-  },
-  {
-    id: 'groceries',
-    value: 70
-  },
-  {
-    id: 'dinner',
-    value: 300
-  }
-];
+import { getDailyExpensesforChart } from '../services/Firestore';
 
 function Charts() {
+  const [expensesArray, handleExpensesArray] = useState([]);
+  const { user } = useContext(Context);
+
+  useEffect(() => {
+    getDailyExpensesforChart(user.uid).then(data => {
+      console.log('data is: ', data);
+      handleExpensesArray(data);
+    });
+  }, []);
   return (
     <React.Fragment>
       <Hero title="Charts" />
       <div style={{ height: '18rem' }}>
-        <ExpensesPie />
+        <ExpensesPie expensesArray={expensesArray} />
       </div>
     </React.Fragment>
   );
 }
 
-function ExpensesPie() {
+function ExpensesPie({ expensesArray }) {
   return (
     <ResponsivePie
-      data={chartData}
+      data={expensesArray}
       innerRadius={0.1}
       margin={{ bottom: 20, left: 20, right: 20 }}
       padAngle={2}
@@ -51,7 +40,7 @@ function ExpensesPie() {
       radialLabelsLinkDiagonalLength={10}
       radialLabelsLinkHorizontalLength={15}
       radialLabelsLinkColor={{ from: 'color', modifiers: [] }}
-      sliceLabel={(e) => '$' + e.value}
+      sliceLabel={e => '$' + e.value}
     />
   );
 }

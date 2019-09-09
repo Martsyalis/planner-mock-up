@@ -31,4 +31,4 @@ function listenForAuthChange(callback) {
 function getCurrentUser() {
   return firebase.auth().currentUser;
 }
-export { signUp, signIn, signOut, listenForAuthChange };
+export { signUp, signIn, signOut, listenForAuthChange, getCurrentUser };

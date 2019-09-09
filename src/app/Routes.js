@@ -15,8 +15,7 @@ function Routes() {
     <Switch>
       <Route exact path="/sign-up" component={Auth} />
       <Route exact path="/sign-in" component={Auth} />
-      <Route exact path="/Charts" component={Charts} />
-
+      <ProtectedRoute valid={!!user} exact path="/charts" component={Charts} />
       <ProtectedRoute valid={!!user} exact path="/" component={Main} />
       <ProtectedRoute
         valid={!!user}

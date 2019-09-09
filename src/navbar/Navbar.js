@@ -47,6 +47,8 @@ function NavMenu({ isBurgerMenu, handleBurger }) {
         <MenuLink to="/" text="Add" />
         <MenuLink to="/budget" text="Budget" />
         <MenuLink to="/history" text="History" />
+        <MenuLink to="/charts" text="Charts" />
+
         <p className="navbar-item" onClick={signOut}>
           Sign out
         </p>

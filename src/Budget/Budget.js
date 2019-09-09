@@ -31,6 +31,10 @@ function Budget() {
     });
   }, []);
 
+  function handleEditMonthlyExpenses(){
+    handleShowAddField(!showAddField);
+  }
+
   //TODO: add spinner
   const functionObj = {
     editMonthlyBudget(budget) {
@@ -65,7 +69,7 @@ function Budget() {
             monthlyObj={monthlyExpenses}
             setMonthlyExpenses={setMonthlyExpenses}
             showAddField={showAddField}
-            handleShowAddField={handleShowAddField}
+            handleEdit={handleEditMonthlyExpenses}
             addMonthlyExpense={addMonthlyExpense}
             removeMonthlyExpense={removeMonthlyExpense}
             monthlyExpensesId={user.uid}

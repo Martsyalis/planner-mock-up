@@ -17,7 +17,7 @@ export default function Auth({ match, history }) {
         handleUser(uid);
         history.push('/budget');
       })
-      .catch(err => 'error in handleSignUp: ', err);
+      .catch(err => console.log('error in handleSignUp: ', err));
   }
 
   function handleSignIn(event) {

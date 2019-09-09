@@ -20,7 +20,7 @@ function Budget() {
   const [monthlyExpenses, setMonthlyExpenses] = useState('');
   const [showAddField, handleShowAddField] = useState(false);
   const [input, setInput] = useState('');
-  const {user} = useContext(Context);
+  const { user } = useContext(Context);
 
   useEffect(() => {
     getBudgetById(user.uid).then(result => {
@@ -31,7 +31,7 @@ function Budget() {
     });
   }, []);
 
-  function handleEditMonthlyExpenses(){
+  function handleEditMonthlyExpenses() {
     handleShowAddField(!showAddField);
   }
 
@@ -63,7 +63,7 @@ function Budget() {
             monthlyBudget={monthlyBudget}
             handleEdit={() => setInput('editMonthlyBudget')}
           />
-         
+
           <MonthlyExpensesCard
             title="Monthly Expenses"
             monthlyObj={monthlyExpenses}

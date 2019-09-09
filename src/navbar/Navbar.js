@@ -44,10 +44,12 @@ function NavMenu({ isBurgerMenu, handleBurger }) {
         className="navbar-end mobile-navbar"
         onClick={() => handleBurger(false)}
       >
-        <MenuLink to="/" text="Home" />
+        <MenuLink to="/" text="Add" />
         <MenuLink to="/budget" text="Budget" />
         <MenuLink to="/history" text="History" />
-        <p className='navbar-item' onClick={signOut}>Sign out</p>
+        <p className="navbar-item" onClick={signOut}>
+          Sign out
+        </p>
       </div>
     </div>
   );
@@ -65,6 +67,5 @@ function MenuLink({ to, text }) {
     </NavLink>
   );
 }
-
 
 export default Navbar;

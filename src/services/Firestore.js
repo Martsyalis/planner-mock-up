@@ -74,15 +74,12 @@ function setBudgetById(newBudget, id) {
 }
 
 function getAllMonthlyExpensesById(id) {
-  return (
-    db
-      .collection('monthlyExpenses')
-      .doc(id)
-      .get()
-      // gives us wierd snapShot
-      .then(snapShot => snapShot.data())
-      .catch(err => console.error('error in getAllMonthlyExpensesById: ', err))
-  );
+  return db
+    .collection('monthlyExpenses')
+    .doc(id)
+    .get()
+    .then(snapShot => snapShot.data())
+    .catch(err => console.error('error in getAllMonthlyExpensesById: ', err));
 }
 
 function addMonthlyExpense(expense, id) {
@@ -129,13 +126,28 @@ async function initiateUser(uid, email) {
   }
 }
 
-function getDailyExpensesforChart(id) {
-  return db
-    .collection('dailyExpenses')
-    .doc(id)
-    .get()
-    .then(snapShot => {
-      return aggregateArray(snapShot.data().expensesArray);
+function getExpensesforChart(id, includeDaily, includeMonthly) {
+  let result = [];
+  return Promise.all([
+    includeDaily &&
+      db
+        .collection('dailyExpenses')
+        .doc(id)
+        .get(),
+    includeMonthly && getAllMonthlyExpensesById(id)
+  ])
+    .then(([dailySnapshot, monthlyObj]) => {
+      if (includeDaily)
+        result = [
+          ...result,
+          ...aggregateArray(dailySnapshot.data().expensesArray)
+        ];
+      if (includeMonthly) {
+        for (let key in monthlyObj) {
+          result.push({ id: key, value: parseFloat(monthlyObj[key]) });
+        }
+      }
+      return result;
     })
     .catch(err => console.error('error in getDailyExpesnes: ', err));
 }
@@ -165,5 +177,5 @@ export {
   addMonthlyExpense,
   removeMonthlyExpense,
   initiateUser,
-  getDailyExpensesforChart
+  getExpensesforChart
 };

@@ -102,28 +102,29 @@ function removeMonthlyExpense(expense, id) {
     .catch(err => console.log('error in removeMonthlyExpense is:', err));
 }
 
-async function initiateUser(uid, email) {
-  try {
-    await db
+function initiateUser(uid, email) {
+  Promise.all([
+    db
       .collection('budget')
       .doc(uid)
-      .set({ monthlyBudget: 0 });
-    await db
+      .set({ monthlyBudget: 0 }),
+    db
       .collection('dailyExpenses')
       .doc(uid)
-      .set({ expensesArray: [] });
-    await db
+      .set({ expensesArray: [] }),
+    db
       .collection('monthlyExpenses')
       .doc(uid)
-      .set({ example: '0' });
-    await db
+      .set({ example: '0' }),
+    db
       .collection('users')
       .doc(uid)
-      .set({ email });
-    return { uid, email };
-  } catch (err) {
-    console.log('error is: ', err);
-  }
+      .set({ email })
+  ])
+    .then(() => {
+      uid, email;
+    })
+    .catch(err => console.log('error in initiateUser is: ', err));
 }
 
 function getExpensesforChart(id, includeDaily, includeMonthly) {

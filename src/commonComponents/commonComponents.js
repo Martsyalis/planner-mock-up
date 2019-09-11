@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MdEdit } from 'react-icons/lib/md';
+import { MdEdit, MdExpandMore, MdExpandLess } from 'react-icons/lib/md';
 
 // import addIcon from '../assets/add-icon.png';
 
@@ -47,25 +47,32 @@ function NumberInput({ handleSubmit, setNumPad }) {
 }
 
 function Card(WrappedComponent) {
-  return class extends React.Component {
-    render() {
-      const { title, handleEdit, cardBodyHeight } = this.props;
-      return (
-        <article className="message is-info">
-          <div className="message-header">
-            <p>{title}</p>
-            {handleEdit && (
-              <span className="icon" onClick={handleEdit}>
-                <MdEdit />
-              </span>
+  return props => {
+    const { title, handleEdit, cardBodyHeight = '100%' } = props;
+    const [isExpanded, handleExpanded] = useState(true);
+    return (
+      <article className="message is-info">
+        <div className="message-header">
+          <span className="icon">
+            {isExpanded ? (
+              <MdExpandLess onClick={e => handleExpanded(!isExpanded)} />
+            ) : (
+              <MdExpandMore onClick={e => handleExpanded(!isExpanded)} />
             )}
-          </div>
-          <div className="message-body" style={{ height: cardBodyHeight }}>
-            <WrappedComponent {...this.props} />
-          </div>
-        </article>
-      );
-    }
+          </span>
+          <p>{title}</p>
+          <span className="icon">
+            {isExpanded && handleEdit && <MdEdit onClick={handleEdit} />}
+          </span>
+        </div>
+        <div
+          className={`message-body ${!isExpanded && 'hide'}`}
+          style={{ height: cardBodyHeight }}
+        >
+          <WrappedComponent {...props} />
+        </div>
+      </article>
+    );
   };
 }
 

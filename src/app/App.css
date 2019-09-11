@@ -34,3 +34,12 @@
   position: fixed;
   right: 1rem;
 }
+
+.height-transition {
+  transition: height 0.2s ease;
+  height: 100%;
+}
+
+.hide {
+  display: none;
+}

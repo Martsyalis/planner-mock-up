@@ -8,7 +8,7 @@
   justify-content: flex-end;
 }
 
-.flex-child-column{
+.flex-child-column {
   display: flex;
   flex-direction: column;
 }

@@ -9,13 +9,12 @@ function Charts() {
   const [expensesArray, handleExpensesArray] = useState([]);
   const [includeMonthly, handleIncludeMonthly] = useState(false);
   const [includeDaily, handleIncludeDaily] = useState(true);
-
   const { user } = useContext(Context);
+
   useEffect(() => {
-    getExpensesforChart(user.uid, includeDaily, includeMonthly).then(data => {
-      console.log('data is: ', data);
-      handleExpensesArray(data);
-    });
+    getExpensesforChart(user.uid, includeDaily, includeMonthly).then(data =>
+      handleExpensesArray(data)
+    );
   }, []);
 
   function handleMonthlyCheckbox(checked) {
@@ -39,7 +38,7 @@ function Charts() {
         <ExpensesPie expensesArray={expensesArray} />
         <div className="flex-child-column">
           <label className="checkbox">
-            Include Daily Expenses {' '}
+            Include Daily Expenses{' '}
             <input
               type="checkbox"
               checked={includeDaily}
@@ -60,12 +59,12 @@ function Charts() {
   );
 }
 
-function ExpensesPie({ expensesArray }) {
+function ExpensesPie({ expensesArray, startAngle, endAngle }) {
   return (
     <ResponsivePie
       data={expensesArray}
       innerRadius={0.1}
-      margin={{ bottom: 30, left: 20, right: 20, top:30 }}
+      margin={{ bottom: 30, left: 20, right: 20, top: 30 }}
       padAngle={2}
       cornerRadius={3}
       colors={{ scheme: 'nivo' }}

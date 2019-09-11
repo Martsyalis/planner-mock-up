@@ -44,7 +44,7 @@ function Budget() {
       });
     }
   };
-  const displayBalanceCard = monthlyBudget && monthlyExpenses
+  const displayBalanceCard = monthlyBudget && monthlyExpenses;
   return (
     <React.Fragment>
       {input ? (

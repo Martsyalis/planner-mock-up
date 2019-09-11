@@ -10,4 +10,4 @@ Mock up for the financial planner progressive web app.
 1. Run npm i to download all the dependencies. 
 1. run npm start, the aplication will launch on localhost 3001
 
-### [for a list if todos check Project tickets](https://github.com/Martsyalis/planner-mock-up/projects/1)
+### [for a list of todos check Project tickets](https://github.com/Martsyalis/planner-mock-up/projects/1)

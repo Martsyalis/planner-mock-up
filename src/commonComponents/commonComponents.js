@@ -49,7 +49,7 @@ function NumberInput({ handleSubmit, setNumPad }) {
 function Card(WrappedComponent) {
   return class extends React.Component {
     render() {
-      const { title, handleEdit } = this.props;
+      const { title, handleEdit, cardBodyHeight } = this.props;
       return (
         <article className="message is-info">
           <div className="message-header">
@@ -60,7 +60,7 @@ function Card(WrappedComponent) {
               </span>
             )}
           </div>
-          <div className="message-body">
+          <div className="message-body" style={{ height: cardBodyHeight }}>
             <WrappedComponent {...this.props} />
           </div>
         </article>
@@ -88,4 +88,17 @@ function Notification({
   );
 }
 
-export { Hero, NumberInput, Card, Notification };
+function Checkbox({ label, handleCheckbox, isChecked }) {
+  return (
+    <label className="checkbox">
+      {label}{' '}
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={e => handleCheckbox(e.target.checked)}
+      />
+    </label>
+  );
+}
+
+export { Hero, NumberInput, Card, Notification, Checkbox };

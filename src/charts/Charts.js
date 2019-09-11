@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../app/MyProvider';
-
 import { ResponsivePie } from '@nivo/pie';
-import { Hero } from '../commonComponents/commonComponents';
+import { Hero, Card, Checkbox } from '../commonComponents/commonComponents';
 import { getExpensesforChart } from '../services/Firestore';
 
 function Charts() {
@@ -34,32 +33,28 @@ function Charts() {
   return (
     <React.Fragment>
       <Hero title="Charts" />
-      <div style={{ height: '18rem' }}>
-        <ExpensesPie expensesArray={expensesArray} />
-        <div className="flex-child-column">
-          <label className="checkbox">
-            Include Daily Expenses{' '}
-            <input
-              type="checkbox"
-              checked={includeDaily}
-              onChange={e => handleDailyCheckbox(e.target.checked)}
-            />
-          </label>
-          <label className="checkbox">
-            Include Monthly Expenses{' '}
-            <input
-              type="checkbox"
-              checked={includeMonthly}
-              onChange={e => handleMonthlyCheckbox(e.target.checked)}
-            />
-          </label>
-        </div>
+      <ExpensesPieCard
+        cardBodyHeight="22rem"
+        expensesArray={expensesArray}
+        title="Expenses Chart"
+      />
+      <div className="flex-child-column">
+        <Checkbox
+          isChecked={includeDaily}
+          label="Include Daily Expenses"
+          handleCheckbox={handleDailyCheckbox}
+        />
+        <Checkbox
+          isChecked={includeMonthly}
+          label=" Include Monthly Expenses"
+          handleCheckbox={handleMonthlyCheckbox}
+        />
       </div>
     </React.Fragment>
   );
 }
 
-function ExpensesPie({ expensesArray, startAngle, endAngle }) {
+const ExpensesPieCard = Card(({ expensesArray }) => {
   return (
     <ResponsivePie
       data={expensesArray}
@@ -77,6 +72,6 @@ function ExpensesPie({ expensesArray, startAngle, endAngle }) {
       sliceLabel={e => '$' + e.value}
     />
   );
-}
+});
 
 export default Charts;

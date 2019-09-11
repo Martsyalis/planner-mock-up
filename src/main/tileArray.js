@@ -14,7 +14,8 @@ const transportIcon =
   'https://firebasestorage.googleapis.com/v0/b/money-planer.appspot.com/o/transport-icon.png?alt=media&token=6686fa47-888b-45be-9613-429af1ef52f7';
 const petIcon =
   'https://firebasestorage.googleapis.com/v0/b/money-planer.appspot.com/o/dog-icon.png?alt=media&token=7753c28f-7cde-4cf4-89f2-59ab7de460f6';
-
+const drinksIcon =
+  'https://firebasestorage.googleapis.com/v0/b/money-planer.appspot.com/o/drinks-icon.jpg?alt=media&token=2f84989b-2355-4efa-8b7f-d056de45e262';
 export const tileArray = [
   {
     type: 'Coffee',
@@ -49,7 +50,7 @@ export const tileArray = [
     img: petIcon
   },
   {
-    type: 'Dinner',
-    img: dinnerIcon
+    type: 'Drinks',
+    img: drinksIcon
   }
 ];

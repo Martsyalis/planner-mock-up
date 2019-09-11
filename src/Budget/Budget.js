@@ -51,6 +51,7 @@ function Budget() {
         <NumberInput handleSubmit={functionObj[input]} />
       ) : (
         <React.Fragment>
+          <Hero title={'Budget'} />
           {!!displayBalanceCard && (
             <BalanceCard
               title="Balance"

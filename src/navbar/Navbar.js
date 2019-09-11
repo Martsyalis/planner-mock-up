@@ -7,7 +7,7 @@ function Navbar() {
   const [isBurgerOpen, handleBurger] = useState(false);
   return (
     <nav
-      className="navbar main-navbar"
+      className="navbar main-navbar is-link"
       role="navigation"
       aria-label="main navigation"
     >

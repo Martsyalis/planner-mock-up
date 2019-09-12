@@ -16,7 +16,7 @@ function App() {
         {showNotification && (
           <Notification
             handleClose={() => handleShowNotification(false)}
-            text="This expirience has been designed for Mobile View, Desktop compatability us comming"
+            text="This expirience has been designed for Mobile View, Desktop compatability is comming"
             type="desktop-only is-warning"
           />
         )}

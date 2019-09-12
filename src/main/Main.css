@@ -1,14 +1,17 @@
 .main-page {
   margin-top: 5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .tile-flex-parent {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-width: 25rem;
 }
 .box-parent {
-  width: 8rem;
+  width: 30%;
   margin: 0.15rem;
   display: flex;
   justify-content: center;
@@ -16,17 +19,8 @@
 .icon-image {
   height: 5rem;
   width: 5rem;
+  object-fit: contain;
 }
 .type {
   text-align: center;
-}
-
-@media only screen and (min-width: 1000px) {
-  .main-page {
-    display: flex;
-    justify-content: center;
-  }
-  .tile-flex-parent {
-    max-width: 30%;
-  }
 }

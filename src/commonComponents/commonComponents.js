@@ -79,14 +79,15 @@ function Card(WrappedComponent) {
 function Notification({
   text,
   handleClose,
-  timeout = 2000,
+  timeout,
   type = 'is-success'
 }) {
-  useEffect(() => {
-    setTimeout(() => {
-      handleClose();
-    }, timeout);
-  });
+  timeout &&
+    useEffect(() => {
+      setTimeout(() => {
+        handleClose();
+      }, timeout);
+    });
   return (
     <div className={`notification ${type} is-rounded margin-small`}>
       <button className="delete" onClick={handleClose}></button>

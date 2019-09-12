@@ -16,7 +16,6 @@ function App() {
         {showNotification && (
           <Notification
             handleClose={() => handleShowNotification(false)}
-            timeout={10000}
             text="This expirience has been designed for Mobile View, Desktop compatability us comming"
             type="desktop-only is-warning"
           />

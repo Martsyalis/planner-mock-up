@@ -82,23 +82,15 @@ function Notification({
   timeout = 2000,
   type = 'is-success'
 }) {
-  const [isOpen, handleIsOpen] = useState(true);
   useEffect(() => {
     setTimeout(() => {
-      handleIsOpen(false);
+      handleClose();
     }, timeout);
   });
   return (
-    <div>
-      {isOpen && (
-        <div className={`notification ${type} is-rounded margin-small`}>
-          <button
-            className="delete"
-            onClick={() => handleIsOpen(false)}
-          ></button>
-          {text}
-        </div>
-      )}
+    <div className={`notification ${type} is-rounded margin-small`}>
+      <button className="delete" onClick={handleClose}></button>
+      {text}
     </div>
   );
 }

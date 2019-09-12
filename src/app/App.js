@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MyProvider from './MyProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './Routes';
@@ -8,15 +8,19 @@ import { Notification } from '../commonComponents/commonComponents';
 import './App.css';
 
 function App() {
+  const [showNotification, handleShowNotification] = useState(true);
   return (
     <Router>
       <MyProvider>
         <Navbar />
-        <Notification
-          timeout={10000}
-          text="This expirience has been designed for Mobile View, Desktop compatability us comming"
-          type="desktop-only is-warning"
-        />
+        {showNotification && (
+          <Notification
+            handleClose={() => handleShowNotification(false)}
+            timeout={10000}
+            text="This expirience has been designed for Mobile View, Desktop compatability us comming"
+            type="desktop-only is-warning"
+          />
+        )}
         <Routes />
       </MyProvider>
     </Router>

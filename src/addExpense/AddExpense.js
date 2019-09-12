@@ -10,7 +10,7 @@ import {
   Notification
 } from '../commonComponents/commonComponents';
 
-function Main() {
+function AddExpense() {
   const [type, setType] = useState('');
   const [showNumPad, setNumPad] = useState(false);
   const [showNotification, handleShowNotification] = useState(false);
@@ -69,4 +69,4 @@ function Tile({ type, img, setType, setNumPad }) {
   );
 }
 
-export default Main;
+export default AddExpense;

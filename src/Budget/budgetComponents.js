@@ -154,16 +154,28 @@ const BalanceCard = Card(
     }
     return (
       <React.Fragment>
-        <p>
-          Remaining Balance This Month: $
-          {allExpensesBalance() || monthlyExpensesBalance()}
-        </p>
-        <p>Averege Daily Spending: ${averegeDailySpendingThisMonth()}</p>
-        <p>
-          Projected Balance For The End Of The Month: $
-          {projectedEndOfMonthBalance()}{' '}
-        </p>
-        <p>Balance After Monthly Expences: ${monthlyExpensesBalance()} </p>
+        <table className="table is-fullwidth">
+          <tbody className="tbody">
+            <tr className="tr">
+              <td className="td"> Remaining Balance This Month</td>
+              <td className="td">
+                ${allExpensesBalance() || monthlyExpensesBalance()}
+              </td>
+            </tr>
+            <tr className="tr">
+              <td className="td"> Averege Daily Spending</td>
+              <td className="td ">${averegeDailySpendingThisMonth()}</td>
+            </tr>
+            <tr className="tr">
+              <td className="td"> Projected Balance For This Month</td>
+              <td className="td">${projectedEndOfMonthBalance()}</td>
+            </tr>
+            <tr className="tr">
+              <td className="td"> Balance After Monthly Expences</td>
+              <td className="td">${monthlyExpensesBalance()}</td>
+            </tr>
+          </tbody>
+        </table>
       </React.Fragment>
     );
   }

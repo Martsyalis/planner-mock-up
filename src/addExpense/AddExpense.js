@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Context } from '../app/MyProvider';
 
 import { tileArray } from './tileArray';
-import './Main.css';
+import './AddExpense.css';
 import { addDailyExpenseById } from '../services/Firestore';
 import {
   Hero,

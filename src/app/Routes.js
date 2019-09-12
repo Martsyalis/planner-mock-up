@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Context } from '../app/MyProvider';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
-import Main from '../main/Main';
+import AddExpense from '../addExpense/AddExpense';
 import History from '../history/History';
 import Budget from '../budget/Budget';
 import Auth from '../auth/Auth';
@@ -16,7 +16,7 @@ function Routes() {
       <Route exact path="/sign-up" component={Auth} />
       <Route exact path="/sign-in" component={Auth} />
       <ProtectedRoute valid={!!user} exact path="/charts" component={Charts} />
-      <ProtectedRoute valid={!!user} exact path="/" component={Main} />
+      <ProtectedRoute valid={!!user} exact path="/" component={AddExpense} />
       <ProtectedRoute
         valid={!!user}
         exact

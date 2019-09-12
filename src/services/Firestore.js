@@ -32,7 +32,7 @@ function addDailyExpenseById(type, price, id) {
     });
 }
 
-function getDailyExpensesById(id) {
+function getDailyExpensesById(id, currentMonthOnly) {
   return db
     .collection('dailyExpenses')
     .doc(id)
@@ -40,10 +40,16 @@ function getDailyExpensesById(id) {
     .then(snapShot => {
       return snapShot
         .data()
-        .expensesArray.map(a => ({
-          ...a,
-          date: a.date.toDate()
-        }))
+        .expensesArray.map(a => {
+          let isCurrentMonth =
+            a.date.toDate().getMonth() === new Date().getMonth();
+          if (!currentMonthOnly || isCurrentMonth) {
+            return {
+              ...a,
+              date: a.date.toDate()
+            };
+          }
+        })
         .reverse();
     })
     .catch(err => console.error('error in getDailyExpesnes: ', err));

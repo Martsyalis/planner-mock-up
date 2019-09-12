@@ -111,7 +111,7 @@ const BalanceCard = Card(
   ({ monthlyBudget, monthlyExpenses, dailyExpensesId }) => {
     const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
     useEffect(() => {
-      getDailyExpensesById(dailyExpensesId).then(results => {
+      getDailyExpensesById(dailyExpensesId, true).then(results => {
         handleExpensesHistory(results);
       });
     }, []);
@@ -134,13 +134,36 @@ const BalanceCard = Card(
         }
       }, parseFloat(monthlyExpensesBalance()));
     }
+
+    function projectedEndOfMonthBalance() {
+      return (
+        monthlyExpensesBalance() -
+        averegeDailySpendingThisMonth() * daysInCurrentMonth()
+      );
+
+      function daysInCurrentMonth() {
+        const nextMonth = new Date().getMonth() + 1;
+        const year = new Date().getFullYear();
+        return new Date(year, nextMonth, 0).getDate();
+      }
+    }
+
+    function averegeDailySpendingThisMonth() {
+      let spendingDelta = monthlyExpensesBalance() - allExpensesBalance();
+      return Math.round(spendingDelta / new Date().getDate());
+    }
     return (
       <React.Fragment>
         <p>
-          Total Balance This Month: $
+          Remaining Balance This Month: $
           {allExpensesBalance() || monthlyExpensesBalance()}
         </p>
-        <p>Your Monthly Balance is: ${monthlyExpensesBalance()} </p>
+        <p>Averege Daily Spending: ${averegeDailySpendingThisMonth()}</p>
+        <p>
+          Projected Balance For The End Of The Month: $
+          {projectedEndOfMonthBalance()}{' '}
+        </p>
+        <p>Balance After Monthly Expences: ${monthlyExpensesBalance()} </p>
       </React.Fragment>
     );
   }

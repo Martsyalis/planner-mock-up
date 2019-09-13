@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Hero, NumberInput, Card } from '../commonComponents/commonComponents';
 import { getDailyExpensesById } from '../services/Firestore';
 
+// Monthly Expenses Component
 const MonthlyExpensesCard = Card(
   ({
     monthlyObj,
@@ -25,7 +26,7 @@ const MonthlyExpensesCard = Card(
           <td className="td">{key}</td>
           <td className="td">${monthlyObj[key]}</td>
           {showAddField && (
-            <td className="fixed-right">
+            <td className="td">
               <div
                 className="delete"
                 aria-label="delete"
@@ -103,18 +104,23 @@ function AddField({
   );
 }
 
+// Monthly Budget Component
+
 const MonthyBudgetCard = Card(({ monthlyBudget }) => (
   <p>Your Monthly Budget is: ${monthlyBudget}</p>
 ));
 
+// Monthly Balance Component
 const BalanceCard = Card(
   ({ monthlyBudget, monthlyExpenses, dailyExpensesId }) => {
     const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
+
     useEffect(() => {
       getDailyExpensesById(dailyExpensesId, true).then(results => {
         handleExpensesHistory(results);
       });
     }, []);
+
     function monthlyExpensesBalance() {
       return Object.keys(monthlyExpenses).reduce(
         (accumulator, currentValue) => {

@@ -13,15 +13,20 @@ import {
 function AddExpense() {
   const [type, setType] = useState('');
   const [showNumPad, setNumPad] = useState(false);
-  const [showNotification, handleShowNotification] = useState(false);
+  const [notificationType, setNotificationType] = useState('is-success');
   const [notificationText, setNotificationText] = useState('');
   const { user } = useContext(Context);
 
   function handleSubmit(price) {
-    addDailyExpenseById(type, price, user.uid).then(() => {
-      setNotificationText(`Added ${price} for ${type}`);
-      handleShowNotification(true);
-    });
+    addDailyExpenseById(type, price, user.uid)
+      .then(() => {
+        setNotificationText(`Added ${price} for ${type}`);
+        setNotificationType('is-success');
+      })
+      .catch(err => {
+        setNotificationText(err.message);
+        setNotificationType('is-error');
+      });
     setNumPad(false);
   }
   const tilesComponents = tileArray.map((tile, i) => (
@@ -38,10 +43,11 @@ function AddExpense() {
     <React.Fragment>
       <Hero title="Expenses" />
       <div className="main-page">
-        {showNotification && (
+        {notificationText && (
           <Notification
-            handleClose={() => handleShowNotification(false)}
+            handleClose={() => notificationText('')}
             text={notificationText}
+            type={notificationType}
           />
         )}
         {showNumPad ? (

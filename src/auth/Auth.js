@@ -10,7 +10,6 @@ export default function Auth({ match, history }) {
   const isSignUp = match.url === '/sign-up';
   const [email, handleEmail] = useState('');
   const [password, handlePassword] = useState('');
-  const [showNotification, handleShowNotification] = useState(false);
   const [notificationText, setNotificationText] = useState('');
   const { user, handleUser } = useContext(Context);
   function handleSignUp(event) {
@@ -22,7 +21,6 @@ export default function Auth({ match, history }) {
       })
       .catch(err => {
         setNotificationText(err.message);
-        handleShowNotification(true);
       });
   }
 
@@ -35,7 +33,6 @@ export default function Auth({ match, history }) {
       })
       .catch(err => {
         setNotificationText(err.message);
-        handleShowNotification(true);
       });
   }
 
@@ -91,10 +88,10 @@ export default function Auth({ match, history }) {
           </p>
         )}
       </form>
-      {showNotification && (
+      {notificationText && (
         <Notification
           timeout={5000}
-          handleClose={() => handleShowNotification(false)}
+          handleClose={() => setNotificationText('')}
           text={notificationText}
           type="is-danger"
         />

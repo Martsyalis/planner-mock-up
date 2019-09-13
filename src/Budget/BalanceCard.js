@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { Card } from '../commonComponents/commonComponents';
 
@@ -42,6 +42,10 @@ function Balance({ monthlyBudget, monthlyExpenses, dailyExpenses }) {
       <table className="table is-fullwidth">
         <tbody className="tbody">
           <tr className="tr">
+            <td className="td"> Balance After Monthly Expences</td>
+            <td className="td">${monthlyExpensesBalance()}</td>
+          </tr>
+          <tr className="tr">
             <td className="td"> Remaining Balance This Month</td>
             <td className="td">
               ${allExpensesBalance() || monthlyExpensesBalance()}
@@ -54,10 +58,6 @@ function Balance({ monthlyBudget, monthlyExpenses, dailyExpenses }) {
           <tr className="tr">
             <td className="td"> Projected Balance For This Month</td>
             <td className="td">${projectedEndOfMonthBalance()}</td>
-          </tr>
-          <tr className="tr">
-            <td className="td"> Balance After Monthly Expences</td>
-            <td className="td">${monthlyExpensesBalance()}</td>
           </tr>
         </tbody>
       </table>

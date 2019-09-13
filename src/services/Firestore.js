@@ -32,7 +32,7 @@ function addDailyExpenseById(type, price, id) {
     });
 }
 
-function getDailyExpensesById(id, currentMonthOnly) {
+function getDailyExpensesById(id, currentMonthOnly = true) {
   return db
     .collection('dailyExpenses')
     .doc(id)

@@ -5,9 +5,15 @@ import {
   setBudgetById,
   getAllMonthlyExpensesById,
   addMonthlyExpense,
-  removeMonthlyExpense
+  removeMonthlyExpense,
+  getDailyExpensesById
 } from '../services/Firestore';
-import { Hero, NumberInput, Card } from '../commonComponents/commonComponents';
+import {
+  Hero,
+  NumberInput,
+  Card,
+  Notification
+} from '../commonComponents/commonComponents';
 import MonthlyExpensesCard from './MonthlyExpensesCard';
 import BalanceCard from './BalanceCard';
 import './Budget.css';
@@ -15,36 +21,63 @@ import './Budget.css';
 function Budget() {
   const [monthlyBudget, setBudget] = useState(0);
   const [monthlyExpenses, setMonthlyExpenses] = useState('');
+  const [dailyExpenses, handleDailyExpenses] = useState([]);
   const [showAddField, handleShowAddField] = useState(false);
-  const [input, setInput] = useState('');
+  const [showNumInput, handleshowNumInput] = useState(false);
+  const [errorNotification, setErrorNotification] = useState('');
   const { user } = useContext(Context);
 
   useEffect(() => {
-    getBudgetById(user.uid).then(result => {
-      setBudget(result.monthlyBudget);
-    });
-    getAllMonthlyExpensesById(user.uid).then(result => {
-      setMonthlyExpenses(result);
-    });
+    getBudgetById(user.uid)
+      .then(result => {
+        setBudget(result.monthlyBudget);
+      })
+      .catch(err => {
+        setErrorNotification(err.message);
+      });
+    getAllMonthlyExpensesById(user.uid)
+      .then(result => {
+        setMonthlyExpenses(result);
+      })
+      .catch(err => {
+        setErrorNotification(err.message);
+      });
+    getDailyExpensesById(user.uid)
+      .then(results => {
+        handleDailyExpenses(results);
+      })
+      .catch(err => {
+        setErrorNotification(err.message);
+      });
   }, []);
 
   function handleEditMonthlyExpenses() {
     handleShowAddField(!showAddField);
   }
 
-  const functionObj = {
-    editMonthlyBudget(budget) {
-      setBudgetById(budget, user.uid).then(() => {
+  function handleNewMonthlyBudget(budget) {
+    setBudgetById(budget, user.uid)
+      .then(() => {
         setBudget(budget);
-        setInput('');
+        handleshowNumInput(false);
+      })
+      .catch(err => {
+        setErrorNotification(err.message);
       });
-    }
-  };
+  }
+
   const displayBalanceCard = monthlyBudget && monthlyExpenses;
   return (
     <React.Fragment>
-      {input ? (
-        <NumberInput handleSubmit={functionObj[input]} />
+      {errorNotification && (
+        <Notification
+          text={errorNotification}
+          handleClose={() => setErrorNotification('')}
+          type="is-danger"
+        />
+      )}
+      {showNumInput ? (
+        <NumberInput handleSubmit={handleNewMonthlyBudget} />
       ) : (
         <React.Fragment>
           <Hero title={'Budget'} />
@@ -53,13 +86,13 @@ function Budget() {
               title="Balance"
               monthlyBudget={monthlyBudget}
               monthlyExpenses={monthlyExpenses}
-              dailyExpensesId={user.uid}
+              dailyExpenses={dailyExpenses}
             />
           )}
           <MonthyBudgetCard
             title="Budget"
             monthlyBudget={monthlyBudget}
-            handleEdit={() => setInput('editMonthlyBudget')}
+            handleEdit={() => handleshowNumInput(true)}
           />
 
           <MonthlyExpensesCard
@@ -67,6 +100,7 @@ function Budget() {
             monthlyObj={monthlyExpenses}
             setMonthlyExpenses={setMonthlyExpenses}
             showAddField={showAddField}
+            handleShowAddField={handleShowAddField}
             handleEdit={handleEditMonthlyExpenses}
             addMonthlyExpense={addMonthlyExpense}
             removeMonthlyExpense={removeMonthlyExpense}

@@ -1,17 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Card } from '../commonComponents/commonComponents';
-import { getDailyExpensesById } from '../services/Firestore';
 
-function Balance({ monthlyBudget, monthlyExpenses, dailyExpensesId }) {
-  const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
-
-  useEffect(() => {
-    getDailyExpensesById(dailyExpensesId, true).then(results => {
-      handleExpensesHistory(results);
-    });
-  }, []);
-
+function Balance({ monthlyBudget, monthlyExpenses, dailyExpenses }) {
   function monthlyExpensesBalance() {
     return Object.keys(monthlyExpenses).reduce((accumulator, currentValue) => {
       return (
@@ -21,7 +12,7 @@ function Balance({ monthlyBudget, monthlyExpenses, dailyExpensesId }) {
   }
 
   function allExpensesBalance() {
-    return dailyExpensesHistory.reduce((a, value) => {
+    return dailyExpenses.reduce((a, value) => {
       // checks if the expenses happened this month
       if (moment(value.date).isSame(moment(), 'month')) {
         return parseFloat(a) - parseFloat(value.price);

@@ -109,7 +109,7 @@ function removeMonthlyExpense(expense, id) {
 }
 
 function initiateUser(uid, email) {
-  Promise.all([
+  return Promise.all([
     db
       .collection('budget')
       .doc(uid)
@@ -127,9 +127,10 @@ function initiateUser(uid, email) {
       .doc(uid)
       .set({ email })
   ])
-    .then(() => {
-      uid, email;
-    })
+    .then(() => ({
+      uid,
+      email
+    }))
     .catch(err => console.log('error in initiateUser is: ', err));
 }
 

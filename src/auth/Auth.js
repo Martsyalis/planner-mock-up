@@ -17,7 +17,8 @@ export default function Auth({ match, history }) {
     signUp(email, password)
       .then(uid => {
         handleUser(uid);
-        history.push('/');
+        console.log('we are in sign up')
+        history.push('/budget');
       })
       .catch(err => {
         setNotificationText(err.message);
@@ -29,7 +30,7 @@ export default function Auth({ match, history }) {
     signIn(email, password)
       .then(uid => {
         handleUser(uid);
-        history.push('/');
+        history.push('/budget');
       })
       .catch(err => {
         setNotificationText(err.message);
@@ -90,7 +91,6 @@ export default function Auth({ match, history }) {
       </form>
       {notificationText && (
         <Notification
-          timeout={5000}
           handleClose={() => setNotificationText('')}
           text={notificationText}
           type="is-danger"

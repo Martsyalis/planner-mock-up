@@ -7,12 +7,9 @@ import {
   addMonthlyExpense,
   removeMonthlyExpense
 } from '../services/Firestore';
-import { Hero, NumberInput } from '../commonComponents/commonComponents';
-import {
-  MonthlyExpensesCard,
-  MonthyBudgetCard,
-  BalanceCard
-} from './budgetComponents';
+import { Hero, NumberInput, Card } from '../commonComponents/commonComponents';
+import MonthlyExpensesCard from './MonthlyExpensesCard';
+import BalanceCard from './BalanceCard';
 import './Budget.css';
 
 function Budget() {
@@ -35,7 +32,6 @@ function Budget() {
     handleShowAddField(!showAddField);
   }
 
-  //TODO: add spinner
   const functionObj = {
     editMonthlyBudget(budget) {
       setBudgetById(budget, user.uid).then(() => {
@@ -81,5 +77,9 @@ function Budget() {
     </React.Fragment>
   );
 }
+
+const MonthyBudgetCard = Card(({ monthlyBudget }) => (
+  <p>Your Monthly Budget is: ${monthlyBudget}</p>
+));
 
 export default Budget;

@@ -8,7 +8,7 @@ function History() {
   const [dailyExpensesHistory, handleExpensesHistory] = useState([]);
   const { user } = useContext(Context);
   useEffect(() => {
-    getDailyExpensesById(user.uid).then(results => {
+    getDailyExpensesById(user.uid, false).then(results => {
       handleExpensesHistory(results);
     });
   }, []);
@@ -33,7 +33,9 @@ function Table({ dailyExpensesHistory }) {
       <tbody className="tbody">{printExenses}</tbody>
     </table>
   ) : (
-    <div>No Expenses yet</div>
+    <div>
+        Loading...
+    </div>
   );
 }
 

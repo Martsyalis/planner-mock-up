@@ -45,7 +45,7 @@ function AddExpense() {
       <div className="main-page">
         {notificationText && (
           <Notification
-            handleClose={() => notificationText('')}
+            handleClose={() => setNotificationText('')}
             text={notificationText}
             type={notificationType}
           />

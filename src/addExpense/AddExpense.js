@@ -42,14 +42,14 @@ function AddExpense() {
   return (
     <React.Fragment>
       <Hero title="Expenses" />
+      {notificationText && (
+        <Notification
+          handleClose={() => setNotificationText('')}
+          text={notificationText}
+          type={notificationType}
+        />
+      )}
       <div className="main-page">
-        {notificationText && (
-          <Notification
-            handleClose={() => setNotificationText('')}
-            text={notificationText}
-            type={notificationType}
-          />
-        )}
         {showNumPad ? (
           <NumberInput handleSubmit={handleSubmit} setNumPad={setNumPad} />
         ) : (

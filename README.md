@@ -11,10 +11,10 @@ Mockup for the financial planner progressive web app. The idea behind the app wa
 ### What needs to be added:
 1. In future versions, the tiles need to be customizable to an individual user. the difficulty with that right now is that I can't think of the categories that others might need, And I can't offer user to name their own because icons are so crucial to the 'effortlessness' of adding a new expense
 
-2.More Data is needed for this, but where the Charts could really shine is in a multi-month analysis. Until then I have no long term trends to analyze. Still, it would be nice to come up with more data to show in Charts, if only to practice Data Visualisation which was one of the original goals of this project
+2. More Data is needed for this, but where the Charts could really shine is in a multi-month analysis. Until then I have no long term trends to analyze. Still, it would be nice to come up with more data to show in Charts, if only to practice Data Visualisation which was one of the original goals of this project
 
 ### What needs to be changed:
-1.In Monthly or Total expenses Charts, Rent takes up too much space. I am not sure how to handle it at this time, but potential solutions would be to move Rent to its own category. On the other hand, Thematicly and logically Rent belong in Monthly Expenses, and perhaps the squished graph just tells me I should spend less on Rent...
+1. In Monthly or Total expenses Charts, Rent takes up too much space. I am not sure how to handle it at this time, but potential solutions would be to move Rent to its own category. On the other hand, Thematicly and logically Rent belong in Monthly Expenses, and perhaps the squished graph just tells me I should spend less on Rent...
 
 2. PWA aspect of the app certainly makes it much easier to use on a daily bases and this app simply wouldn't be usable without it, but My cashing technique is inefficient and probably buggy. The only diagnostic tool that I have for PWA, which is google's Lighthouse, shows near 100% ratings. But personally, the user experience on updates feels slow. Half the time I close down the app entirely and re-open it out of impatience. Perhaps some of it is due to the expectations of native apps not having to load at all. And on subsequent visits, that's how Planner works, but after each update, it takes a good 6-7 seconds to load, which is infuriating. 
  

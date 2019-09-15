@@ -52,13 +52,12 @@ function Card(WrappedComponent) {
     const [isExpanded, handleExpanded] = useState(true);
     return (
       <article className="message is-info">
-        <div className="message-header">
+        <div
+          className="message-header"
+          onClick={e => handleExpanded(!isExpanded)}
+        >
           <span className="icon">
-            {isExpanded ? (
-              <MdExpandLess onClick={e => handleExpanded(!isExpanded)} />
-            ) : (
-              <MdExpandMore onClick={e => handleExpanded(!isExpanded)} />
-            )}
+            {isExpanded ? <MdExpandLess /> : <MdExpandMore />}
           </span>
           <p>{title}</p>
           <span className="icon">
@@ -76,12 +75,7 @@ function Card(WrappedComponent) {
   };
 }
 
-function Notification({
-  text,
-  handleClose,
-  timeout,
-  type = 'is-success'
-}) {
+function Notification({ text, handleClose, timeout, type = 'is-success' }) {
   timeout &&
     useEffect(() => {
       setTimeout(() => {

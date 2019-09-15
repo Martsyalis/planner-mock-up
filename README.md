@@ -1,5 +1,4 @@
-#[Planer](https://money-planner-mock.netlify.com)
-
+# [Planer](https://money-planner-mock.netlify.com)
 Mockup for the financial planner progressive web app. The idea behind the app was a place to collect all info on one's spending and analyze it. The original Project involved ML analysis using TensorFlow but there was nowhere near enough data points to produce any new analysis. I still found the app to be very helpful in keeping track of my daily expenses, and seeing overall trends and predictions for my spending. I use it daily.
 
 

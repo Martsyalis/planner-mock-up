@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../app/MyProvider';
-
 import { tileArray } from './tileArray';
 import './AddExpense.css';
 import { addDailyExpenseById } from '../services/Firestore';
@@ -20,7 +19,7 @@ function AddExpense() {
   function handleSubmit(price) {
     addDailyExpenseById(type, price, user.uid)
       .then(() => {
-        setNotificationText(`Added ${price} for ${type}`);
+        setNotificationText(`Added $${price} for ${type}`);
         setNotificationType('is-success');
       })
       .catch(err => {

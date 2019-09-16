@@ -46,6 +46,7 @@ function NumberInput({ handleSubmit, setNumPad }) {
   );
 }
 
+
 function Card(WrappedComponent) {
   return props => {
     const { title, handleEdit, cardBodyHeight = '100%' } = props;

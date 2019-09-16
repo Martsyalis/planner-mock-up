@@ -1,9 +1,10 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 // config for Service worker
 const SWConfig = {
@@ -24,6 +25,7 @@ const SWConfig = {
 const buildPath = `${__dirname}/docs`;
 
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     path: buildPath,
@@ -36,14 +38,15 @@ module.exports = {
     compress: true,
     historyApiFallback: true
   },
-  devtool: 'inline-source-map',
+  devtool: '',
   plugins: [
     new Dotenv(),
-    new CleanWebpackPlugin(`${buildPath}/bundle.*.js`),
     new HtmlPlugin({ template: './src/index.html' }),
     new ManifestPlugin({ fileName: 'asset-manifest.json' }),
     new SWPrecacheWebpackPlugin(SWConfig),
-    new CopyWebpackPlugin([{ from: 'src/pwa' }])
+    new CopyWebpackPlugin([{ from: 'src/pwa' }]),
+    new CompressionPlugin(),
+    new CleanWebpackPlugin()
   ],
   module: {
     rules: [
@@ -85,15 +88,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader'
-      },
-      {
-        test: /\.(jpg|png|svg|jpeg)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {}
-          }
-        ]
       },
       {
         test: /\.ico$/,

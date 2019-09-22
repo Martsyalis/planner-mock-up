@@ -36,17 +36,17 @@ module.exports = {
     contentBase: './docs',
     port: 3001,
     compress: true,
-    historyApiFallback: true
+    // historyApiFallback: true
   },
   devtool: '',
   plugins: [
     new Dotenv(),
+    new CleanWebpackPlugin(),
     new HtmlPlugin({ template: './src/index.html' }),
     new ManifestPlugin({ fileName: 'asset-manifest.json' }),
     new SWPrecacheWebpackPlugin(SWConfig),
     new CopyWebpackPlugin([{ from: 'src/pwa' }]),
-    new CompressionPlugin(),
-    new CleanWebpackPlugin()
+    new CompressionPlugin()
   ],
   module: {
     rules: [
